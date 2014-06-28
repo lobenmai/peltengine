@@ -1,0 +1,19 @@
+ACTION		DEFAULT (Keyboard)	DEFAULT (Gamepad)
+
+In-Game:
+Up		W/Up			L-Stick or D-Pad Up
+Down		S/Down			L-Stick or D-Pad Down
+Left		A/Left			L-Stick or D-Pad Left
+Right		D/Right			L-Stick or D-Pad Right
+Pause		Esc/Return		Start
+
+Explore Only:
+Sprint		Z/Shift			R2 or RT
+Interact	X/Space			Cross or A
+Inventory	Tab			Select
+
+Battle Only:
+Light Attack	J			Circle or B
+Heavy Attack	K			Square or X
+Magic		L			Triangle or Y
+Block		Z/Shift			L2 or LT

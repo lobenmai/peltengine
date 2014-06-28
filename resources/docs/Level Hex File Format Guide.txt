@@ -1,0 +1,123 @@
+71 39 6C = Magic Number (File always starts with magic number)
+07 = Begin Section (program looks at next character to define section)
+FF = End Section (07 expected after FF)
+17 = Begin Sub-Section (same as 07, except placed inside of 07-FF block, see Sub-Section chart below for details on what to put in this block)
+03 = End Sub-Section (17 or FF expected after 03)
+
+Section Identifiers (comes after 07):
+	4C = Header
+	4D = Map Floor
+	44 = Dictionary (Defines Chest contents, Dialogue triggers, Enemies, and Furniture throughout the level)
+
+Header Sub-Sections (comes after 17 inside 4C):
+	02 = Name
+	04 = Author
+
+Map Floor Content (comes inside 4D, listed below is the core blocks):
+	00 0A = Next Row
+	00 20-2F = Floor (Different types of floor)
+	00 3D = Wall
+	00 53 = Spawn Point (Place only one)
+	01 ?? = Chest
+	02 ?? = Dialogue Trigger
+	03 ?? = Enemy
+	04 ?? = Door
+	05 ?? = Trapdoor
+	0F FF = End Map Floor
+	(00-0F are reserved for the core and system)
+
+Dictionaries:
+	63 = Chest
+	64 = Dialogue
+	65 = Enemy
+	6F = Doors
+    72 = Trapdoors
+    74 = Custom Tiles
+
+Dictionary Entry Start-End:
+	0C = New Entry
+	0D = Next Part of Entry
+	0E = End Entry
+	(the byte after 0C is the same byte used in the map floor content)
+
+Dictionary-Specific Entry Attributes (code comes after the byte after 0C):
+	Chest Dictionary:
+		1D = Start Contents List (End with 0D)
+		2D = Next Item In Contents List
+		1E = Start Attributes List (End with 0D)
+		2E = Next Item In Attributes List
+	
+	Dialogue Dictionary:
+		[[Will work on later]]
+	
+	Enemy Dictionary:
+		1C = Name
+	
+	(Trap)Doors Dictionary:
+		2C = Not Locked (Only use this without anything after)
+		1C = Locked With Key (Only if 2C does not exist.  Key must be defined in a chest)
+		1D = Start Attributes List (End with 0D)
+		1E = Next Item In Attributes List
+	
+	Custom Tiles Dictionary:
+		1C = Group Name that Tile comes from
+		1D = Group Tile ID (Ex. if 1C were set to Glass Blocks, 1D as 13 would assign the block to the 13th element in the Glass Blocks group)
+
+
+   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+0 -- -- 02 03 04 -- -- 07 -- -- -- -- 0C 0D 0E --
+1 -- -- -- -- -- -- -- 17 -- -- -- -- 1C 1D 1E --
+2 -- -- -- -- -- -- -- -- -- -- -- -- 2C 2D 2E --
+3 30 31 32 33 34 -- -- -- -- -- -- -- -- -- -- --
+4 -- -- -- -- 44 -- -- -- -- -- -- -- 4C 4D -- 4F
+5 50 51 -- -- -- -- -- -- -- -- -- -- -- -- -- --
+6 -- -- -- 63 64 65 -- -- -- -- -- -- -- -- -- 6F
+7 -- -- 72 -- 74 -- -- -- -- -- -- -- -- -- -- --
+8 80 81 82 -- -- -- -- -- -- -- -- -- -- -- -- --
+9 90 91 92 -- -- -- -- -- -- -- -- -- -- -- -- --
+A -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+B B0 B1 B2 B3 B4 B5 B6 B7 B8 B9 BA BB BC BD BE BF
+C -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- CF
+D -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+E -- -- -- -- -- -- -- -- -- -- -- -- -- -- EE EF
+F F0 F1 -- -- -- -- -- -- -- -- FA FB -- -- -- FF
+
+
+
+To start off the file, begin with the Magic Number, 71 39 6C.  Then, begin the header section by typing 07 4C.  We need to type the name of the level, so type 17 to start the sub-section, 02 to tell this is the name sub-section, the name of the level in ASCII hex, and end with 03.  Next, we need the author, so type 17 04 to tell it is the author sub-section, the name of the author in ASCII, and end with 03.  Type FF to finish the Header section.
+
+Now we need the map content, so we type 07 4D, then the floor letter.  Inside the level, one tile is two bytes.  So, to place a floor tile, we would type 00 3D.  Each tile has it's own unique two-byte identifier.  00 to 0F on the first byte are reserved for the core tiles and the system.  The following are the tile codes for the core tiles, with ?? meaning whatever numbers you wish (will be useful later in this guide, during the dictionary):
+
+	00 0A = Next Row
+	00 53 = Spawn Point (Place only one)
+	01 ?? = Chest
+	02 ?? = Dialogue Trigger
+	03 ?? = Enemy
+	04 ?? = Door
+	05 ?? = Trapdoor
+	06 ?? = Floor (Different Types)
+	07 ?? = Wall (Different Types)
+	0F FF = End Map Floor
+
+As shown above, to end the map floor content, type 0F FF.  Place only one spawn point (00 53) to avoid problems with the map.    You can also define custom blocks in the dictionary, 
+which we'll talk about in the next paragraph.  To create the data for the next floor, repeat this step, with a different floor letter.
+
+Dictionaries hold all the metadata for tiles with a second byte defined by the map maker.  To start the dictionary, type 07 44.  Next, type one of the dictionary codes shown below.  To start a new entry inside of a dictionary, type 0C ??, where ?? is the numbers you picked for your tile above.  For the next part the entry, type 0D, and to end the entry, type 0E.  Then, the each following paragraph will tell about each dictionary.
+
+Chest Dict (17 63): First, type 1D, then the first item stored inside the chest.  Type 2D to move onto the next item in the list.  Finish the list by typing 0D.  Then, move onto the attributes list by typing 1E.  Separate the different attributes by 2E, and finish with 0D.  The attributes list is optional and can be not used by starting and ending the list right away.
+
+Dialogue Dict (17 64):
+	[[Will work on later]]
+
+Enemy Dict (17 65):
+	[[Will work on later]]
+
+Door Dict (17 6F):
+	[[Will work on later]]
+
+Trapdoor Dict (17 72):
+	[[Will work on later]]
+
+Custom Tiles Dict (17 74):
+	[[Will work on later]]
+

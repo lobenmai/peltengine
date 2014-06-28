@@ -1,0 +1,324 @@
+(dp0
+S'helpexamine'
+p1
+S'examine <item> - shows description of item'
+p2
+sS'doorhere'
+p3
+S'[yellow]There is a door to the %s'
+p4
+sS'helpcmd'
+p5
+S'help'
+p6
+sS'examinecmd'
+p7
+S'examine'
+p8
+sS'savewarning'
+p9
+S'[red]WARNING: File belongs to %s %s the %s.  Okay to overwrite?'
+p10
+sS'chestopenerror'
+p11
+S'[red]The chest is already open!'
+p12
+sS'helpsave'
+p13
+S'save - Saves the game'
+p14
+sS'playerdesc'
+p15
+S'%s %s the %s %s, carrying %s, at %s, Level %s.  Can use the attacks %s'
+p16
+sS'doormissing'
+p17
+S'[red]There is no door in that direction.'
+p18
+sS'inputerror'
+p19
+S'[red]Invalid Input'
+p20
+sS'back'
+p21
+S'[red]Back'
+p22
+sS'attack1desc'
+p23
+S'A simple punch'
+p24
+sS'helptake'
+p25
+S'take <item> - if item is movable, will take item'
+p26
+sS'helpgo'
+p27
+S'go <direction> - Go through the door in the defined direction'
+p28
+sS'doordesc'
+p29
+S'[yellow]A door to the %s that leads to the %s.'
+p30
+sS'describecmd'
+p31
+S'describe'
+p32
+sS'colorerror'
+p33
+S'[red]Color input was invalid.'
+p34
+sS'cancel'
+p35
+S'[red]Cancel'
+p36
+sS'directionerror'
+p37
+S"[red]That's not a proper direction."
+p38
+sS'yes'
+p39
+S'[green]Yes'
+p40
+sS'open'
+p41
+g41
+sS'girl'
+p42
+S'Girl'
+p43
+sS'drinkpoisonedmsg'
+p44
+S'User drank poison from a %s'
+p45
+sS'gocmd'
+p46
+S'go'
+p47
+sS'quit'
+p48
+S'[red]Quit'
+p49
+sS'slow'
+p50
+S'Slow'
+p51
+sS'savecmd'
+p52
+S'save'
+p53
+sS'gameinputerror'
+p54
+S"I didn't understand what you typed."
+p55
+sS'title'
+p56
+S'%s'
+p57
+sS'doorlocked'
+p58
+S"[red]You try to open the door but the handle won't budge."
+p59
+sS'drinkpoisoned'
+p60
+S'[red]That %s had a fatal poison inside.  You are now dead.'
+p61
+sS'chestopen'
+p62
+S'[blue]Opened the chest, %s was inside.'
+p63
+sS'helpdrink'
+p64
+S'drink <item> - if item is a drink, will drink item'
+p65
+sS'usingerror'
+p66
+S'What do you want to %s the %s with?'
+p67
+sS'fast'
+p68
+S'Fast'
+p69
+sS'next'
+p70
+S'Next Page'
+p71
+sS'eatcmd'
+p72
+S'eat'
+p73
+sS'gameaction'
+p74
+S'What will you do?'
+p75
+sS'version'
+p76
+S'[green]Version %s, [blue]Pelt Version %s'
+p77
+sS'chestdescopen'
+p78
+S'A chest that contains %s and is open.'
+p79
+sS'closed'
+p80
+g80
+sS'quitcmd'
+p81
+g48
+sS'helpload'
+p82
+S'load - Loads the game from a save file (dangerous)'
+p83
+sS'foodpoisoned'
+p84
+S'[red]That %s was covered in fatal poison.  You are now dead.'
+p85
+sS'saveerror'
+p86
+S'[red]Not a valid save file.'
+p87
+sS'quitmsg'
+p88
+S"Quit on user's demand."
+p89
+sS'med'
+p90
+S'Medium'
+p91
+sS'loadcmd'
+p92
+S'load'
+p93
+sS'opencmd'
+p94
+g41
+sS'save1'
+p95
+S'Save %s (Unused)'
+p96
+sS'save2'
+p97
+S'Save %s: %s'
+p98
+sS'save3'
+p99
+S'Save to File'
+p100
+sS'save4'
+p101
+S'Load File'
+p102
+sS'gamestart'
+p103
+S'You are in a room.'
+p104
+sS'drinkcmd'
+p105
+S'drink'
+p106
+sS'title2'
+p107
+S'%s - Version %s'
+p108
+sS'iosquit'
+p109
+S'User did not choose iPhone or iPad.'
+p110
+sS'takecmd'
+p111
+S'take'
+p112
+sS'no'
+p113
+S'[red]No'
+p114
+sS'using'
+p115
+g115
+sS'type1'
+p116
+S'Normal'
+p117
+sS'with'
+p118
+g118
+sS'foodeaten'
+p119
+S'That %s was very tasty!'
+p120
+sS'chestdescclosed'
+p121
+S'A closed chest.'
+p122
+sS'lang'
+p123
+S'Language'
+p124
+sS'boy'
+p125
+S'Boy'
+p126
+sS'ok'
+p127
+S'[green]Ok'
+p128
+sS'helpdescribe'
+p129
+S'describe - Tells what you see around you'
+p130
+sS'helpeat'
+p131
+S'eat <item> - If item is food, will eat item'
+p132
+sS'iosask'
+p133
+S'Are you on an iPhone or iPad?  This is important for gameplay.'
+p134
+sS'foodpoisonedmsg'
+p135
+S'User ate a poisoned %s'
+p136
+sS'chestlocked'
+p137
+S'[red]Chest is locked with a key.'
+p138
+sS'author'
+p139
+S'Made by %s'
+p140
+sS'itemerror'
+p141
+S"[red]I don't see any %s here."
+p142
+sS'cmderror'
+p143
+S"[red]I don't know how to do that."
+p144
+sS'itemnormal'
+p145
+S"This %s doesn't seem to be unusual."
+p146
+sS'attackerror'
+p147
+S'[red]Not a valid attack.'
+p148
+sS'helphelp'
+p149
+S'help - Displays this message'
+p150
+sS'itemhere'
+p151
+S'[yellow]There is a %s here'
+p152
+sS'helpquit'
+p153
+S'quit - Saves and quits the game.'
+p154
+sS'attack1'
+p155
+S'Punch'
+p156
+sS'chestunlocked'
+p157
+S'[blue]Unlocked the chest using %s.'
+p158
+s.

@@ -1,0 +1,39 @@
+{
+	"name" : "String",
+	"author" : "String",
+	"comments" : "Item[0] is block example, Item[1] is armor example",
+	"items" : [
+		{
+			"blockname" : "String",
+			"descructible" : 2012,
+			"liquid" : true,
+			"flow" : 2012,
+			"opacity" : 2012,
+			"creator" : "String",
+			"stool" : true,
+			"portability" : true,
+			"image" : "String",
+			"damaging" : 2012,
+			"effect" : true,
+			"effectdetails" : {
+				"name" : "String",
+				"amount" : 2012,
+				"stickiness" : 2012
+			},
+			"chest" : true,
+			"chestdetails" : {
+				"lockable" : true,
+				"contains" : [
+					"Item1",
+					"Item2"
+				]
+			},
+			"impactSound" : "String",
+			"polymorphic" : true,
+			"radiation" : 2012,
+			"temperature" : 2012,
+			"stickiness" : 2012,
+			"volume" : 2012
+		}
+	]
+}

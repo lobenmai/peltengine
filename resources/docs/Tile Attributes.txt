@@ -1,0 +1,31 @@
+Able to walk through: Ghost
+Destructible (Float Variable)
+Liquid 
+Flow (Float Variable)
+Opacity (Float)
+Creates other tiles and entities: Creator (Entity Name)
+Supports player weight, player can stand on top of it: Stool 
+Portability
+Image
+Damaging
+Effect (Effect Name) (Amount) (Stickiness)
+Chest
+Lockable
+Contains
+ImpactSound
+Polymorphic
+Radiation (Distance) 
+Temperature
+Stickiness
+Volume
+
+Armor Slots:
+Head
+Body
+Legs
+Feet
+Arms
+Hands
+Rings (L/R)
+Tail
+Backwear

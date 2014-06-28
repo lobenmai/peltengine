@@ -1,0 +1,12 @@
+Go to the Start Menu
+Right-click on Computer
+Click Properties
+On the top-left, click on advanced system settings
+Click on the Advanced tab
+Click on Environment Variables
+On the list of "System Variables", scroll down until you see the "Path" variable, then click on it
+Click "Edit"
+Scroll to the end of the "Variable value" and type the following: ;C:\Python27
+Click Okay on all of the windows
+Close the computer properties
+In the Project Fur folder, double-click on "finish.bat" (it's under installer-assets > python-installer)

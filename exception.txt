@@ -1,0 +1,17 @@
+We're terribly sorry, but an internal error has occurred :(
+This will be written to the console and a file named exception.txt in the current directory.
+Press ESCAPE to exit (if displayed on-screen)
+Game could not be saved.
+TypeError: 'NoneType' object has no attribute '__getitem__'
+Traceback (most recent call last):
+  File "/Users/lobenmai/Dropbox/peltengine/pelt/main.py", line 130, in main
+    g.mainloop() #start the main loop
+  File "/Users/lobenmai/Dropbox/peltengine/pelt/main.py", line 109, in mainloop
+    surface = self.update_func() #tell current object to update for one frame
+  File "/Users/lobenmai/Dropbox/peltengine/pelt/titlescreen.py", line 202, in update
+    self.update_func() #call specified update function
+  File "/Users/lobenmai/Dropbox/peltengine/pelt/titlescreen.py", line 102, in main_update
+    self.surf.blit(self.logo, (18+prlx[0], 12+prlx[1])) #and logo
+TypeError: 'NoneType' object has no attribute '__getitem__'
+
+Error handler finished.

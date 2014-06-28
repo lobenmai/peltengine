@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="grasssandtiles" tilewidth="16" tileheight="16">
+  <image source="../tilesets/grasssandtiles.png" width="192" height="48"/>
+ </tileset>
+ <tileset firstgid="37" name="maptypetileset" tilewidth="16" tileheight="16">
+  <image source="../tilesets/maptypetileset.png" width="32" height="64"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="30" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0KEBgDAQxdBrwdJiW9h/TjIC6quIiNjXqqrTQSe10F80aNId/EWbHnqDn3LVWWedddZZZ5111llnnXX++x8dIDK/
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="30" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0L0KgDAMReEs1epWFTf/+v4P6R0le1qEE/gg24Vj1u+yTI3Mn91NkgwyBv+72y2yyBr8+91DTrmCf79LZzrTmc50pjOd6UxnOv+t8y1PI9X63guMEDcT
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="30" height="30"/>
+ <layer name="Collisions" width="30" height="30" opacity="0.55">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgiD/r25IQAEAAPBoDhAAAQ==
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,7 @@
+build/*
+dist/*
+*.pyc
+*.py.old
+*.py.remake
+*.peltsav
+*.psd

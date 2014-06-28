@@ -1,0 +1,120 @@
+71 39 61 = Magic Number (File always starts with magic number)
+07 = Begin Section (program looks at next character to define section)
+FF = End Section (07 expected after FF)
+17 = Begin Sub-Section (same as 07, except placed inside of 07-FF block)
+03 = End Sub-Section (17 or FF expected after 03)
+
+Section Identifiers (comes after 07):
+	4C = Header
+	4F = Begin New Tile
+
+Header Sub-Sections (comes after 17 inside 4C):
+	02 = Name
+	04 = Author
+
+Tile Arguments:
+	(First byte is tile identifier)
+	(Text in [] tells what kind of data it is, Text in {} tells default value)
+	EF = Argument Separator
+	(Use EF to separate Argument info, ex. Effect Name, On/Off {EF} Effect Ammount {EF} Stickiness)
+	B0 = Ghost
+		30 = Density [Number]
+	B1 = Destructible
+		31 = Durability [Number] (One hit with a stone hammer takes 10 durability)
+	B2 = Liquid
+		30 = Density [Number], 32 = Flow [Number]
+	B3 = Radiation
+		50 = Reach [Whole Number], 33 = Amount [Number]
+	B4 = Temperature
+		80 = Farenheit [True/False], 33 = Amount [Number]
+	B5 = Opacity
+		33 = Amount [Number]
+	B6 = Creator
+		81 = Block or Entity [True/False], 90/91 = Block/Entity ID [Hex ID]
+	B7 = Stool
+		34 = Weight Support [Number]
+	B8 = Portability
+		82 = Portable [True/False]
+	B9 = Image
+		EF = Image Name [File Name]
+	BA = Damaging
+		33 = Amount [Number]
+	BB = Effect
+		92 = Effect ID [Hex ID], 51 = Strength [Whole Number], 52 = Duration [Whole Number]
+	BC = Lockable
+		E0 = Key Name [Item Name]
+	BD = Contains
+		E1 = Items [List of Item Names]
+	BE = ImpactSound
+		EE = Sound Name [File Name]
+	BF = Polymorphic
+		90 = Block [Hex ID], F0 = Trigger [Trigger Type], F1 = Trigger Details [Trigger Details]
+
+Tile Argument Input:
+	30 = Density [Number]
+	31 = Durability [Number]
+	32 = Flow [Number]
+	33 = Amount [Number]
+	34 = Weight Support [Number]
+
+	50 = Reach [Whole Number]
+	51 = Strength [Whole Number]
+	52 = Duration [Whole Number]
+	
+	80 = Farenheit [True/False]
+	81 = Block or Entity [True/False]
+	82 = Portable [True/False]
+	
+	90 = Block [Hex ID]
+	91 = Entity ID [Hex ID]
+	92 = Effect ID [Hex ID]
+	
+	BB = Effect [Effect Name]
+
+	E0 = Key Name [Item Name]
+	E1 = Items [List of Item Names]
+	
+	EE = Sound Name [File Name]
+	EF = Image Name [File Name]
+
+	F0 = Trigger [Trigger Type]
+	F1 = Trigger Details [Trigger Details]
+
+
+
+   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+0 -- -- 02 03 04 -- -- 07 -- -- -- -- 0C 0D 0E --
+1 -- -- -- -- -- -- -- 17 -- -- -- -- 1C 1D 1E --
+2 -- -- -- -- -- -- -- -- -- -- -- -- 2C 2D 2E --
+3 30 31 32 33 34 -- -- -- -- -- -- -- -- -- -- --
+4 -- -- -- -- 44 -- -- -- -- -- -- -- 4C 4D -- 4F
+5 50 51 -- -- -- -- -- -- -- -- -- -- -- -- -- --
+6 -- -- -- 63 64 65 -- -- -- -- -- -- -- -- -- 6F
+7 -- -- 72 -- 74 -- -- -- -- -- -- -- -- -- -- --
+8 80 81 82 -- -- -- -- -- -- -- -- -- -- -- -- --
+9 90 91 92 -- -- -- -- -- -- -- -- -- -- -- -- --
+A -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+B B0 B1 B2 B3 B4 B5 B6 B7 B8 B9 BA BB BC BD BE BF
+C -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- CF
+D -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+E -- -- -- -- -- -- -- -- -- -- -- -- -- -- EE EF
+F F0 F1 -- -- -- -- -- -- -- -- FA FB -- -- -- FF
+
+
+
+Text inside {} means not hex, text inside [] means a comment
+
+71 39 61 [Magic number]
+	07 4C [Begin Header]
+		17 02 [Name of Addon]
+			{Test Addon}
+		03
+		17 04 [End Name Sub-Section and Begin Author Name] 
+			{Test Author} 
+		03
+	FF [End Author Sub-Section and End Header]
+	
+	07 4F AA [Begin First Tile and Identify as AA]
+		
+	FF [End First Tile]
+
