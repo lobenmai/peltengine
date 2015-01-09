@@ -1,6 +1,8 @@
 <map id="oasis_intro" tiles="maps/oasis_intro.tmx">
+    <object id="spawn_point" type="warp" pos="2,7"></object>
 	<object id="intro_room_warp" type="warp" pos="8,0">
 		<dest_map>oasis.xml</dest_map>
 		<dest_warp>intro_warp</dest_warp>
+		<sound sound="shift" vol="100" />
 	</object>
 </map>

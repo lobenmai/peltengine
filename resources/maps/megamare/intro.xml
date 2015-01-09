@@ -1,0 +1,3 @@
+<map id="intro" tiles="maps/megamare/intro.tmx">
+	<object id="spawn_point" type="warp" pos="5,18"></object>
+</map>

@@ -7,14 +7,9 @@ if not settings.ios:
 	import pygame #load all of pygame
 	from pygame.locals import *
 else: import scene
-import random
+import random, logging
 
-import animation #load animation manager
-import dialog #load dialog manager
-import transition
-import objects #used for the render things
-import data
-import pokemon
+import animation, dialog, transition, objects, data#, pokemon
 
 #utility functions
 def get_direction_name(direction): #return a name for each direction
@@ -30,14 +25,14 @@ def get_direction_name(direction): #return a name for each direction
 #class for the player object
 class Player(objects.RenderedNPC):
 	def __init__(self, game):
-		objects.RenderedNPC.__init__(self) #init NPC renderer
+		objects.RenderedNPC.__init__(self, game, None) #init NPC renderer
 		self.g = game.g #store parameters
 		self.game = game
 		#load animations
 		self.animator = animation.AnimationGroup(self.g, self, "objects/player/player_animation.xml")
 		self.collidepoint = (16, 23) #set where to check for collisions
 		self.size = (32, 32) #set sprite size
-		self.tile_pos = self.g.save.get_prop("player", "pos", [5, 8]) #load current position
+		self.tile_pos = self.g.save.get_prop("player", "pos", [0, 0]) #load current position
 		self.game.set_obj_pos(self, self.tile_pos)
 		self.pos = [((self.tile_pos[0]-1)*16)+8, (self.tile_pos[1]-1)*16] #set position in pixels
 		self.rect = pygame.Rect(self.pos, self.size) #turn it into a rect
@@ -51,17 +46,17 @@ class Player(objects.RenderedNPC):
 		self.in_water = False #whether we're currently walking in water
 		self.notify_dlog = dialog.Dialog(self.g, "notify") #initialize a notify dialog
 		self.move_manager = objects.MovementManager(self) #make a movement manager so we can be controlled in cutscenes
-		self.party = self.g.save.get_prop("player", "pokemon", None) #load pokemon
-		if self.party is None: #if none were loaded
-			self.party = [pokemon.get_data("reuniclus").generate(5)] #make a new one
-		else: #if they were
-			t = self.party
-			self.party = []
-			for data in t: #load pokemon data
-				p = pokemon.Pokemon() #make a new pokemon
-				p.load(data) #load its saved data
-				self.party.append(p) #add it to list of pokemon
-				#self.party = self.pokemon
+		self.party = self.g.save.get_prop("player", "party", None) #load party
+		# if self.party is None: #if none were loaded
+		# 	self.party = [pokemon.get_data("reuniclus").generate(5)] #make a new one
+		# else: #if they were
+		# 	t = self.party
+		# 	self.party = []
+		# 	for data in t: #load pokemon data
+		# 		p = pokemon.Pokemon() #make a new pokemon
+		# 		p.load(data) #load its saved data
+		# 		self.party.append(p) #add it to list of pokemon
+		# 		#self.party = self.pokemon
 	#move the player
 	def move(self, direction, force=False):
 		same = (direction == self.direction) #true if we aren't changing direction
@@ -73,40 +68,41 @@ class Player(objects.RenderedNPC):
 		else: #if it isn't pressed
 			speed = 2 #we're moving at 2 pixels/frame
 			self.move_frames = 8
-		if direction == 0: #move up
-			if self.collide((self.tile_pos[0], self.tile_pos[1]-1)) and not force: #if it's a solid tile
-				pass #don't move
-			else: #otherwise
-				self.move_direction = (0, -speed) #set movement
-				self.moving = True #and we're moving
-				self.tile_pos = (self.tile_pos[0], self.tile_pos[1]-1) #update tile position
+
+		tpos = [self.tile_pos[0], self.tile_pos[1]]
+		if direction == 0:
+			tpos = (tpos[0], tpos[1]-1)
+			s = (0, -speed)
 		elif direction == 1:
-			if self.collide((self.tile_pos[0], self.tile_pos[1]+1)) and not force: #if it's a solid tile
-				pass #don't move
-			else: #otherwise
-				self.move_direction = (0, speed) #set movement
-				self.moving = True #and we're moving
-				self.tile_pos = (self.tile_pos[0], self.tile_pos[1]+1) #update tile position
+			tpos = (tpos[0], tpos[1]+1)
+			s = (0, speed)
 		elif direction == 2:
-			if self.collide((self.tile_pos[0]-1, self.tile_pos[1])) and not force: #if it's a solid tile
-				pass #don't move
-			else: #otherwise
-				self.move_direction = (-speed, 0) #set movement
-				self.moving = True #and we're moving
-				self.tile_pos = (self.tile_pos[0]-1, self.tile_pos[1]) #update tile position
+			tpos = (tpos[0]-1, tpos[1])
+			s = (-speed, 0)
 		elif direction == 3:
-			if self.collide((self.tile_pos[0]+1, self.tile_pos[1])) and not force: #if it's a solid tile
-				pass #don't move
-			else: #otherwise
-				self.move_direction = (speed, 0) #set movement
-				self.moving = True #and we're moving
-				self.tile_pos = (self.tile_pos[0]+1, self.tile_pos[1]) #update tile position
+			tpos = (tpos[0]+1, tpos[1])
+			s = (speed, 0)
+
+		if not self.collide(tpos) or force:
+			self.move_direction = s
+			self.moving = True
+			self.tile_pos = tpos
+			#logging.debug("Player moved %s", get_direction_name(direction))
+		#elif self.collide(tpos):
+			#logging.debug("Player moved %s, but collided with an object!", get_direction_name(direction))
+
 		self.game.set_obj_pos(self, self.tile_pos) #set our position
 		if not same or not self.was_moving: #if we need to update our animation
 			self.animator.set_animation(self.move_manager.anim_group+"walk_"+get_direction_name(direction)) #update our animation
 		self.tile_pos = list(self.tile_pos) #convert our position into a list to avoid crashes
 		self.was_moving = self.moving
 	#have the player interact with an object
+	def warp(self, pos):
+		self.tile_pos = pos
+		self.game.set_obj_pos(self, pos)
+		self.pos = [((pos[0]-1)*16)+8, (pos[1]-1)*16]
+		self.rect = pygame.Rect(self.pos, self.size) #turn it into a rect
+		logging.debug("Player warped to %d, %d", self.pos[0], self.pos[1])
 	def interact(self):
 		t = None #tuple of tile position
 		#set direction tuple according to direction
@@ -201,6 +197,6 @@ class Player(objects.RenderedNPC):
 		self.g.save.set_prop("player", "direction", self.direction) #and direction
 		#save pokemon
 		data = []
-		for mon in self.party:
-			data.append(mon.save())
-		self.g.save.set_prop("player", "pokemon", data)
+		# for mon in self.party:
+		# 	data.append(mon.save())
+		self.g.save.set_prop("player", "party", data)

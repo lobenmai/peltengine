@@ -1,7 +1,10 @@
 build/*
 dist/*
+noredistresources/*
 *.pyc
 *.py.old
 *.py.remake
 *.peltsav
+*.pokesav
 *.psd
+*.out

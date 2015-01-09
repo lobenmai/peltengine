@@ -11,6 +11,7 @@ else: import scene
 import animation #load animation manager
 import script #load script manager
 import data
+import dialog
 
 #utility functions
 def get_direction_name(direction): #return a name for each direction
@@ -188,10 +189,29 @@ class MovementManager:
 				self.moving = False #we're not moving any more
 				return True #say so
 
+class MapObj():
+	def __init__(self, game, element):
+		self.g = game.g #store parameters
+		self.game = game
+
+		if element:
+			self.id = element.getAttribute("id")
+
+			t = element.getAttribute("pos").split(",")
+			self.tile_pos = [int(t[0].strip()), int(t[1].strip())] #store position
+
+			self.sound = None #initialize self.sound
+
+			soundEl = element.getElementsByTagName('sound') #get all of the sound elements
+			if soundEl: self.sound = soundEl[0] #if a sound exists, set self.sound as the first of the sound elements
+		
+		self.visible = False #we're not rendering anything
+
 #class that handles rendering generic objects, pretty much
 #the same as a pygame sprite
-class RenderedObject:
-	def __init__(self): #have init defined for consistency
+class RenderedObject(MapObj):
+	def __init__(self, game, element): #have init defined for consistency
+		MapObj.__init__(self, game, element)
 		self.visible = True #set that we're visible
 	def draw(self, surf): #draw ourselves onto a surface
 		if self.visible: #if we're visible
@@ -201,8 +221,8 @@ class RenderedObject:
 		
 #class that renders NPCs, automatically draws shadow
 class RenderedNPC(RenderedObject):
-	def __init__(self):
-		RenderedObject.__init__(self) #init parent class
+	def __init__(self, game, element):
+		RenderedObject.__init__(self, game, element) #init parent class
 		self.shadow = data.load_image("objects/npcshadow.png") #load shadow image
 		self.shadow.convert_alpha() #convert the image for faster drawing
 	def draw(self, surf): #draw ourselves onto a given surface
@@ -210,55 +230,45 @@ class RenderedNPC(RenderedObject):
 		RenderedObject.draw(self, surf) #call renderer for parent class
 
 #warp point object
-class Warp:
+class Warp(MapObj):
 	def __init__(self, game, element):
-		self.g = game.g #store parameters
-		self.game = game
+		MapObj.__init__(self, game, element)
 		properties = {}
-		#get tile we're monitoring
-		t = element.getAttribute("pos").split(",")
-		self.tile_x = int(t[0].strip())
-		self.tile_y = int(t[1].strip())
+		self.tile_x, self.tile_y = self.tile_pos
 		#load destination properties
 		dest_warp = data.get_xml_prop(element, "dest_warp")
 		dest_map = data.get_xml_prop(element, "dest_map")
 		if dest_warp is not None: #if there is a destination
 			properties["dest_warp"] = dest_warp #store properties
 			properties["dest_map"] = dest_map
-			game.add_warp((self.tile_x, self.tile_y), properties) #add the warp
-		self.visible = False #we're not rendering anything
+			if self.sound: properties["sound"] = self.sound
+		game.add_warp(tuple(self.tile_pos), properties) #add the warp
 	def interact(self, pos):
 		pass #don't interact
-	def update(self): #we don't need to do any updates
+	def update(self):
 		pass
 	def save(self): #we don't need to save anything
 		pass
 
 #sign object
-class Sign:
+class Sign(MapObj):
 	def __init__(self, game, element):
-		self.game = game #store parameters
+		MapObj.__init__(self, game, element)
 		self.text = data.get_xml_prop(element, "text") #store text to show
 		#get our tile position
-		t = element.getAttribute("pos").split(",")
-		self.tile_pos = (int(t[0].strip()), int(t[1].strip())) #store position
 		game.set_obj_pos(self, self.tile_pos) #set our position
-		self.visible = False #we're not rendering anything
+		self.dlog = dialog.Dialog(self.g, 'sign')
 	def interact(self, pos): #handle the player interacting with us
-		self.game.show_dlog(self.text) #show our text
+		self.game.show_dlog(self.text, dlog=self.dlog) #show our text
 	def update(self):
 		pass #we don't need to do any updates
 	def save(self): #we don't need to save anything
 		pass
 
 #object to run a script when the player is in a specific area
-class ScriptArea:
+class ScriptArea(MapObj):
 	def __init__(self, game, element):
-		self.id = element.getAttribute("id")
-		self.game = game
-		#get our position
-		t = element.getAttribute("pos").split(",")
-		self.tile_pos = (int(t[0].strip()), int(t[1].strip())) #store position
+		MapObj.__init__(self, game, element)
 		#get our size
 		t = element.getAttribute("size").split(",")
 		try:
@@ -267,7 +277,6 @@ class ScriptArea:
 			self.size = (1, 1) #default to a size of one
 		self.script = element.getElementsByTagName("script")[0] #load our script
 		self.script_manager = script.Script(self) #and create a script manager
-		self.visible = False #we're not rendering anything
 		self.running = False #whether we're currently interacting
 		self.touched = False #whether the player is touching us
 	def interact(self, pos): #handle interaction
@@ -298,11 +307,8 @@ class ScriptArea:
 #generic NPC
 class NPC(RenderedNPC):
 	def __init__(self, game, element):
-		RenderedNPC.__init__(self) #init the renderer class
-		self.id = element.getAttribute("id")
-		self.game = game
-		t = element.getAttribute("pos").split(",") #load tile position
-		self.tile_pos = [int(t[0].strip()), int(t[1].strip())]
+		RenderedNPC.__init__(self, game, element) #init the renderer class
+
 		self.game.set_obj_pos(self, self.tile_pos)
 		self.pos = [((self.tile_pos[0]-1)*16)+8, (self.tile_pos[1]-1)*16] #set real position
 		self.interacting = False #mark that we're not interacting
@@ -326,7 +332,7 @@ class NPC(RenderedNPC):
 		self.should_interact = True #set flag to wait for interaction
 		self.game.stopped = True #stop the player
 	def run_interaction(self):
-		self.stored_anim = self.animator.curr_animation #store current animation
+		self.stored_anim = self.animator.curranim #store current animation
 		self.animator.set_animation("stand_"+get_direction_name(self.interact_pos)) #set standing one
 		self.interacting = True #we're currently interacting
 		self.should_interact = False #but we shouldn't be checking for interaction any more
@@ -350,9 +356,10 @@ class NPC(RenderedNPC):
 import trainer
 
 #dictionary to hold which classes go with which objects
-obj_types = {"warp": Warp, #warp object
-"sign":Sign, #a sign object
-"npc":NPC, #an NPC
-"trainer":trainer.TrainerObject, #a trainer
-"scriptarea":ScriptArea
+obj_types = {
+	"warp": Warp, #warp object
+	"sign":Sign, #a sign object
+	"npc":NPC, #an NPC
+	"trainer":trainer.TrainerObject, #a trainer
+	"scriptarea":ScriptArea
 }

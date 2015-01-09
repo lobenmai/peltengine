@@ -2,16 +2,20 @@ We're terribly sorry, but an internal error has occurred :(
 This will be written to the console and a file named exception.txt in the current directory.
 Press ESCAPE to exit (if displayed on-screen)
 Game could not be saved.
-TypeError: 'NoneType' object has no attribute '__getitem__'
+NameError: global name 'choice_above' is not defined
 Traceback (most recent call last):
-  File "/Users/lobenmai/Dropbox/peltengine/pelt/main.py", line 130, in main
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/main.py", line 255, in main
     g.mainloop() #start the main loop
-  File "/Users/lobenmai/Dropbox/peltengine/pelt/main.py", line 109, in mainloop
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/main.py", line 210, in mainloop
     surface = self.update_func() #tell current object to update for one frame
-  File "/Users/lobenmai/Dropbox/peltengine/pelt/titlescreen.py", line 202, in update
-    self.update_func() #call specified update function
-  File "/Users/lobenmai/Dropbox/peltengine/pelt/titlescreen.py", line 102, in main_update
-    self.surf.blit(self.logo, (18+prlx[0], 12+prlx[1])) #and logo
-TypeError: 'NoneType' object has no attribute '__getitem__'
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/titlescreen.py", line 147, in update
+    self.update_func(self.surf) #call specified update function
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/titlescreen.py", line 136, in main_update
+    self.active_menu.update()
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/menu.py", line 191, in update
+    choice = self.dlog.update(self.surf, (0, 1)) #draw dialog
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/dialog.py", line 279, in update
+    if choice_above: h = self.image.get_height()+50
+NameError: global name 'choice_above' is not defined
 
 Error handler finished.

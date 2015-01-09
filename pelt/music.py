@@ -13,3 +13,6 @@ class Sound(pygame.mixer.Sound):
 
 	def play(self, *args, **kwargs):
 		if settings.option_sound: self.sound.play(*args, **kwargs)
+
+	def set_volume(self, vol=100):
+		self.sound.set_volume(vol/100)

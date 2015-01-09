@@ -4,7 +4,7 @@
 		<!--<pokemon type="geodude" level="4-5|7" rarity="2" />-->
 	</wild>
 	<object id="oasis_sign" type="sign" pos="26,13">
-		<text>Welcome to the Testing Oasis.{br}Enjoy your stay!{wait}</text>
+		<text>Welcome to the PELT engine test level.{br}Enjoy your stay!{wait}</text>
 	</object>
 	<object id="house_warp" type="warp" pos="28,10">
 		<dest_map>oasis_inside.xml</dest_map>
@@ -20,32 +20,31 @@
 			<move dir="down" dist="4" />
 		</movement>
 		<script>
-			<dialog>Oh, hey there.{wait}{br}Funny how similar we look, isn&apos;t it?{br}
-			Ah well. Must be some weird coincidence.{wait}{clear}Kind of odd though, there&apos;s another one of me{br}inside too...{wait}
-			{clear}Have you seen him?{choices}YES{endchoice}NO{endchoice}{endchoices}</dialog>
+			<dialog>Oh, hey there.{wait}{br}Funny thing how we're using Pok{ae}mon graphics for now.{br}
+			Ah well.  {wait}Have you tested out many features of the PELT engine?{choices}YES{endchoice}NO{endchoice}{endchoices}</dialog>
 			<if left=".dlog_result" op="=" right="0">
 				<then>
-					<dialog>He&apos;s a bit odd, isn&apos;t he?{wait}</dialog>
+					<dialog>That's a good player /)^3^(\{wait}</dialog>
 				</then>
 				<else>
-					<dialog>I suggest you check him out.{wait}</dialog>
+					<dialog>Oh, you REALLY need to check out all of them.{wait}</dialog>
 				</else>
 			</if>
 			<set_visible what="test_intruder" to="true" />
-			<set_move speed="8" what="test_intruder">
+			<set_move speed="6" what="test_intruder">
 				<move dir="down" dist="8" />
 				<move dir="right" dist="2" />
 			</set_move>
 			<wait_move for="test_intruder" />
-			<dialog talker="test_intruder">HI!!{wait}</dialog>
-			<dialog>THERE HE IS :O{wait}</dialog>
-			<set_move speed="8" what="test_intruder">
+			<dialog talker="test_intruder">*pant*, *pant*, what about the mouse parallax?{wait}</dialog>
+			<dialog>Oh, yeah!{wait}</dialog>
+			<set_move speed="6" what="test_intruder">
 				<move dir="left" dist="2" />
 				<move dir="up" dist="8" />
 			</set_move>
 			<wait_move for="test_intruder" />
 			<set_visible what="test_intruder" to="false" />
-			<dialog>Heh, see ya.{wait}</dialog>
+			<dialog>Move your mouse around, you'll see something cool ;){wait}</dialog>
 		</script>
 	</object>
 	<object id="test_intruder" type="npc" pos="1,1">
@@ -79,13 +78,13 @@
 				<move dir="down" dist="1" />
 			</set_move>
 			<wait_move for="explainer" />
-			<dialog talker="explainer">Hello there!{br}Welcome to the Testing Oasis!{wait}{br}
-				Here, you'll be helping test the game engine.{wait}{br}
+			<dialog talker="explainer">Hello there!{br}Welcome to the PELT engine test map!{wait}{br}
+				Here, you'll be looking through the many{br} features of the game engine.{wait}{br}
 				Doesn't that sound fun?{wait}{br}
 				Our conversation is for testing Script Areas{br}
-				and cutscene commands! Neat, huh?{wait}{br}
+				and cutscene commands.  Neat, huh?{wait}{br}
 				If you want, I can show you around the place.{wait}
-				{clear}You cool with that?{choices}Let's go!{endchoice}Ehh, I'm fine...{endchoice}{endchoices}</dialog>
+				{clear}Ya want me to?{choices}Sure!{endchoice}Ehh, I'm fine...{endchoice}{endchoices}</dialog>
 			<if left=".dlog_result" op="=" right="1">
 				<then>
 					<dialog talker="explainer">Oh well, see you around!</dialog>
@@ -116,9 +115,10 @@
 				<wait dir="left" frames="1" />
 			</set_move>
 			<wait_move for="player" />
-			<dialog talker="explainer">Here we have a Pok{ae}mon trainer,{br}
+			<dialog talker="explainer">Here we have a warrior,{br}
 				in case you have the urge to battle.{wait}{br}
-				He's not very good though.{wait}
+				Battles aren't possible quite yet, however.{wait}{br}
+				Sorry!{wait}
 			</dialog>
 			<set_move speed="2" what="explainer">
 				<move dir="up" dist="5" />
@@ -131,8 +131,8 @@
 				<wait dir="down" frames="1" />
 			</set_move>
 			<wait_move for="player" />
-			<dialog talker="explainer">This area is where we keep tall grass,{br}
-				perfect for testing wild Pok{ae}mon battles.{wait}
+			<dialog talker="explainer">Here we have a patch of grass {br}
+				that our lovely gardener tends to.{wait}
 			</dialog>
 			<set_move speed="2" what="explainer">
 				<move dir="left" dist="4" />
@@ -156,14 +156,13 @@
 			</set_move>
 			<dialog talker="explainer">And here we have a little cottage with more{br}
 				inside. There's even a secret, try and find it!{wait}
-				{clear}Well that's all for now. I have places to go{br}
-				and people to see. Catch you later!{wait}
+				{clear}Well that's all for now. Catch you later!{wait}
 			</dialog>
 			<set_move speed="8" what="player">
 				<move dir="right" dist="1" />
 				<wait dir="left" frames="1" />
 			</set_move>
-			<set_move speed="8" what="explainer">
+			<set_move speed="4" what="explainer">
 				<move dir="up" dist="8" />
 			</set_move>
 			<wait_move for="explainer" />
@@ -176,18 +175,19 @@
 			<set_pos what="explainer" to="24,14" />
 		</script>
 	</object>
-	<object id="test_trainer" type="trainer" pos="33,4">
+	<object id="test_trainer" type="npc" pos="33,4">
 		<anim file="objects/NPCs/npc_cheren.xml" />
 		<movement speed="2">
 			<move dir="down" dist="5" />
 			<move dir="up" dist="5" />
 		</movement>
-		<vision>3</vision>
+		<script></script>
+		<!-- <vision>3</vision>
 		<class>cooltrainer</class>
 		<reward>120</reward>
 		<name>Cheren</name>
 		<pre_script>
-			<dialog>Oh snap!{br}It's MEEEEE!{wait}</dialog>
+			<dialog>Oh lookie here!{br}Somebody to train with?{wait}</dialog>
 		</pre_script>
 		<post_script>
 			<dialog>Darn. You won, fair then square.{wait}</dialog>
@@ -198,6 +198,6 @@
 		</party>
 		<script>
 			<dialog>What a bore I am...{wait}</dialog>
-		</script>
+		</script> -->
 	</object>
 </map>

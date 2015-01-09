@@ -15,19 +15,25 @@ dialogs = {
 	"standard": {
 		"file":"dialogboxes/dialog.png",
 		"choice_file":"dialogboxes/dialog_choice_tiles.png",
-		"text_rect":pygame.Rect(11,8,232,32),
+		"text_rect":pygame.Rect(11,8,settings.screen_x,settings.screen_y/4),
+		"font":"fonts/dialog_font.xml"
+	},
+	"sign": {
+		"file":"dialogboxes/signdialog.png",
+		"choice_file":"dialogboxes/dialog_choice_tiles.png",
+		"text_rect":pygame.Rect(11,8,settings.screen_x,settings.screen_y/4),
 		"font":"fonts/dialog_font.xml"
 	},
 	"notify": {
 		"file":"dialogboxes/selfdialog.png",
 		"choice_file":"dialogboxes/self_dialog_choice_tiles.png",
-		"text_rect":pygame.Rect(8,8,240,32),
+		"text_rect":pygame.Rect(8,8,settings.screen_x,settings.screen_y/4),
 		"font":"fonts/selfdialog_font.xml"
 	},
 	"battle": {
 		"file":"dialogboxes/battledialog.png",
 		"choice_file":"dialogboxes/self_dialog_choice_tiles.png",
-		"text_rect":pygame.Rect(8,8,240,32),
+		"text_rect":pygame.Rect(8,8,settings.screen_x,settings.screen_y/4),
 		"font":"fonts/selfdialog_font.xml"
 	}
 }
@@ -44,71 +50,73 @@ class ChoiceDialog:
 			self.dlog = dialogs[self.type]
 		else: #otherwise, if none was given
 			dlog = dialogs[type] #get type
-			self.choice_tiles = tileset.Tileset(dlog["choice_file"], 8, 8) #load choice tileset
+			self.choice_tiles = tileset.Tileset(dlog["choice_file"], 16, 16) #load choice tileset
 			self.dlog_font = font.Font(dlog["font"]) #load font
 			self.dlog = dlog
 			self.type = type
 		self.choices = [] #list of choices
 		self.drawing = False #whether we're currently showing choices
 		self.curr_choice = None #index of the currently selected choice
-		self.cursor_tile = pygame.Surface((8, 8), SRCALPHA) #surface to hold cursor tile
+		self.cursor_tile = pygame.Surface((16, 16), SRCALPHA) #surface to hold cursor tile
 		self.selectsound = selectsound #Do we want to play the selection sound?
-	def show_choices(self, choices): #draw a list of choices
+	def show_choices(self, choices, opensound=True): #draw a list of choices
 		prlx = settings.get_prlx(5, 1)
-		self.g.sounds['openMenu'].play()
+		if opensound: self.g.sounds['openMenu'].play()
 		dlog_width = -1 #maximum choice width
 		#calculate width of dialog box
 		for choice in choices: #loop through choices provided:
-			width = self.dlog_font.get_width(choice)+10 #get its width
+			width = self.dlog_font.get_width(choice)+20 #get its width
 			if width > dlog_width: #if it's greater than the current maximum
 				dlog_width = width #update maximum
-		dlog_height = 16 + (self.dlog_font.height*len(choices)) #calculate height of dialog
-		dlog_width += 16 #add border size to width
+		dlog_height = 24 + (self.dlog_font.height*len(choices)) #calculate height of dialog
+		dlog_width += 24 #add border size to width
 		#turn height and width into multiples of eight
-		if dlog_height % 8 > 0: dlog_height += (8-(dlog_height%8))
-		if dlog_width % 8 > 0: dlog_width += (8-(dlog_width%8))
+		if dlog_height % 16 > 0: dlog_height += (16-(dlog_height%16))
+		if dlog_width % 16 > 0: dlog_width += (16-(dlog_width%16))
 		self.dlog_height = dlog_height #store dimensions
 		self.dlog_width = dlog_width
 		self.dlog_surf = pygame.Surface((dlog_width, dlog_height), SRCALPHA) #create surface for the textbox
 		#now draw dialog background
 		#draw four corners
 		self.choice_tiles.blit_tile(self.dlog_surf, (0, 0), 0, 0) #top left
-		self.choice_tiles.blit_tile(self.dlog_surf, (dlog_width-8, 0), 2, 0) #top right
-		self.choice_tiles.blit_tile(self.dlog_surf, (0, dlog_height-8), 0, 2) #bottom left
-		self.choice_tiles.blit_tile(self.dlog_surf, (dlog_width-8, dlog_height-8), 2, 2) #bottom right
+		self.choice_tiles.blit_tile(self.dlog_surf, (dlog_width-16, 0), 2, 0) #top right
+		self.choice_tiles.blit_tile(self.dlog_surf, (0, dlog_height-16), 0, 2) #bottom left
+		self.choice_tiles.blit_tile(self.dlog_surf, (dlog_width-16, dlog_height-16), 2, 2) #bottom right
 		#now, draw top and bottom edges
-		for x in xrange(8, dlog_width-8, 8): #loop through tile positions
+		for x in xrange(16, dlog_width-16, 16): #loop through tile positions
 			self.choice_tiles.blit_tile(self.dlog_surf, (x, 0), 1, 0) #top edge
-			self.choice_tiles.blit_tile(self.dlog_surf, (x, dlog_height-8), 1, 2) #bottom edge
+			self.choice_tiles.blit_tile(self.dlog_surf, (x, dlog_height-16), 1, 2) #bottom edge
 		#draw left and right edges
-		for y in xrange(8, dlog_height-8, 8): #loop through tile positions
+		for y in xrange(16, dlog_height-16, 16): #loop through tile positions
 			self.choice_tiles.blit_tile(self.dlog_surf, (0, y), 0, 1) #left edge
-			self.choice_tiles.blit_tile(self.dlog_surf, (dlog_width-8, y), 2, 1) #right edge
+			self.choice_tiles.blit_tile(self.dlog_surf, (dlog_width-16, y), 2, 1) #right edge
 		#now, fill in dialog middle
-		for y in xrange(8, dlog_height-8, 8): #loop through rows
-			for x in xrange(8, dlog_width-8, 8): #and tiles
+		for y in xrange(16, dlog_height-16, 16): #loop through rows
+			for x in xrange(16, dlog_width-16, 16): #and tiles
 				self.choice_tiles.blit_tile(self.dlog_surf, (x, y), 1, 1) #draw one tile
 		#load cursor tile
 		self.cursor_tile.fill((0, 0, 0, 0)) #clear tile buffer
 		self.choice_tiles.get_tile(0, 3, self.cursor_tile) #load it
 		#now, draw options
-		y = 8 #current y position of drawing
+		y = 16 #current y position of drawing
 		for choice in choices: #loop through choices
-			self.dlog_font.render(choice, self.dlog_surf, (18, y)) #render one
+			self.dlog_font.render(choice, self.dlog_surf, (36, y)) #render one
 			y += self.dlog_font.height #go to next line
 		self.choices = choices #store choices
 		self.drawing = True #we're currently showing something
 		self.curr_choice = 0 #zero current choice
 	def update(self, dest, where): #update ourselves
-		prlx = settingsget_prlx(5, 0.5)
+		prlx = settings.get_prlx(5, 0.5)
 		if not self.drawing: return #return if we're not drawing
 		if self.g.curr_keys.get(settings.key_up) or self.g.curr_mouse[4]: #if up has been pressed
 			if self.curr_choice > 0: #if we're not already at the topmost choice
 				self.curr_choice -= 1 #go up one choice
+			else: self.curr_choice = len(self.choices)-1 #else loop around
 			self.g.sounds['shift'].play()
 		elif self.g.curr_keys.get(settings.key_down) or self.g.curr_mouse[5]: #if down has been pressed
 			if self.curr_choice < len(self.choices)-1: #if we're not already at the bottom choice
 				self.curr_choice += 1 #go down one choice
+			else: self.curr_choice = 0 #else loop around
 			self.g.sounds['shift'].play()
 		if self.g.curr_keys.get(settings.key_accept):# or self.g.mouse[1]: #if the accept key has been pressed
 			self.drawing = False #we're not drawing
@@ -118,9 +126,11 @@ class ChoiceDialog:
 			self.drawing = False #we're not drawing
 			self.g.sounds['reject'].play()
 			return len(self.choices)-1 #return last choice
+		if where[0] < 0: where = (settings.screen_x-self.dlog_width+where[0], where[1])
+		if where[1] < 0: where = (where[0], settings.screen_y-self.dlog_height+where[1])
 		dest.blit(self.dlog_surf, (where[0]+prlx[0], where[1]+prlx[1])) #draw the dialog
 		#draw cursor
-		dest.blit(self.cursor_tile, (where[0]+8+prlx[0], where[1]+10+(self.curr_choice*self.dlog_font.height)+prlx[1]))
+		dest.blit(self.cursor_tile, (where[0]+16+prlx[0], where[1]+20+(self.curr_choice*self.dlog_font.height)+prlx[1]))
 
 #dialog we can use to draw text
 class Dialog:
@@ -132,7 +142,7 @@ class Dialog:
 		self.dlog = dlog #store it
 		self.image = data.load_image(dlog["file"]) #load image file
 		self.image.convert() #convert it so it will draw faster
-		self.choice_tiles = tileset.Tileset(dlog["choice_file"], 8, 8) #load choice tileset
+		self.choice_tiles = tileset.Tileset(dlog["choice_file"], 16, 16) #load choice tileset
 		self.dlog_rect = dlog["text_rect"] #get text rect
 		self.dlog_font = font.Font(dlog["font"]) #load font we're going to use for drawing
 		self.waiting = False #whether we're waiting for the player to press action
@@ -188,12 +198,15 @@ class Dialog:
 				curr_choice += letter #add the letter to the current choice text
 		self.choice_dialog = ChoiceDialog(self.g, 0, dlog=self) #create a new choice dialog
 		self.choice_dialog.show_choices(choices) #show found choices
-	def _next_char(self): #draw the next character
+	def _next_char(self, ignore_keys=False): #draw the next character
+		if ignore_keys: curr_keys = {}
+		else: curr_keys = self.g.curr_keys
+
 		if not self.drawing: #if we're not drawing anything
 			return True #say so
 		#test various wait conditions
 		if self.waiting == 1: #if we're waiting for a keypress
-			if self.g.curr_keys.get(settings.key_accept): #if it has been pressed
+			if curr_keys.get(settings.key_accept): #if it has been pressed
 				self.waiting = False #we're not waiting any more
 				self.fill_allowed = False #we're not allowed to fill
 		elif self.waiting == 2: #if we're waiting fopr a transition
@@ -226,8 +239,13 @@ class Dialog:
 				self._next_line() #go to next line
 			self.dlog_font.render(letter, self.text_surf, self.next_pos) #render letter
 			self.next_pos[0] += width #add width to current position
-	def update(self, surf, surf_pos, force=False): #update the dialog box, returns true when done
-		prlx = settings.get_prlx(5, 0.5)
+	def update(self, surf, surf_pos, force=False, prlx_enable=True, ignore_keys=False, choice_above=True): #update the dialog box, returns true when done
+		if prlx_enable: prlx = settings.get_prlx(5, 0.5)
+		else: prlx = (0, 0)
+
+		if ignore_keys: curr_keys = {}
+		else: curr_keys = self.g.curr_keys
+
 		if not self.drawing: #if we're not drawing anything
 			if not force: return True #return saying we're done if we're not supposed to draw anyway
 			try: #attempt to draw the dialog box
@@ -238,15 +256,15 @@ class Dialog:
 			return True #say we're done
 		choice_ret = None #store the result of a choice update
 		if self.choice_dialog is None: #if we're not currently drawing a choice dialog
-			if self.g.curr_keys.get(settings.key_accept) and self.fill_allowed and self.waiting == False: #if the accept key has been pressed and we're allowed to fill
+			if curr_keys.get(settings.key_accept) and self.fill_allowed and self.waiting == False: #if the accept key has been pressed and we're allowed to fill
 				r = False
 				while r != True: #loop until we're told to stop
-					r = self._next_char() #render another character
+					r = self._next_char(ignore_keys) #render another character
 			else:
 				self.fill_allowed = True #we can fill the dialog now
 				r = False
 				for x in xrange(2):
-					if self._next_char() == True:
+					if self._next_char(ignore_keys) == True:
 						r = True
 						break
 			if r == True: #if we've finished drawing
@@ -258,7 +276,9 @@ class Dialog:
 						surf.blit(self.text_surf, (surf_pos[0]+self.dlog_rect.left+prlx[0], surf_pos[1]+self.dlog_rect.top+prlx[1]))
 					return True #say so
 		else: #if we are drawing a choice dialog
-			choice_ret = self.choice_dialog.update(surf, (2, self.image.get_height()+25)) #draw it
+			if choice_above: h = self.image.get_height()+50
+			else: h = surf.get_height() - self.dlog_rect.get_height() * 2
+			choice_ret = self.choice_dialog.update(surf, (4, h)) #draw it
 		#draw the current dialog box
 		surf.blit(self.image, (surf_pos[0]+prlx[0], surf_pos[1]+prlx[1])) #draw dialog box image
 		surf.blit(self.text_surf, (surf_pos[0]+self.dlog_rect.left+prlx[0], surf_pos[1]+self.dlog_rect.top+prlx[1])) #and text surface

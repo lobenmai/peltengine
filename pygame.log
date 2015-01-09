@@ -1,0 +1,641 @@
+# installing zipimport hook
+import zipimport # builtin
+# installed zipimport hook
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.py
+import site # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/os.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/os.py
+import os # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/os.pyc
+import errno # builtin
+import posix # builtin
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/posixpath.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/posixpath.py
+import posixpath # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/posixpath.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/stat.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/stat.py
+import stat # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/stat.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/genericpath.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/genericpath.py
+import genericpath # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/genericpath.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/warnings.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/warnings.py
+import warnings # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/warnings.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/linecache.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/linecache.py
+import linecache # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/linecache.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/types.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/types.py
+import types # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/types.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/UserDict.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/UserDict.py
+import UserDict # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/UserDict.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_abcoll.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_abcoll.py
+import _abcoll # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_abcoll.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/abc.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/abc.py
+import abc # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/abc.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_weakrefset.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_weakrefset.py
+import _weakrefset # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_weakrefset.pyc
+import _weakref # builtin
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy_reg.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy_reg.py
+import copy_reg # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy_reg.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/traceback.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/traceback.py
+import traceback # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/traceback.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.py
+import sysconfig # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sysconfig.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/re.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/re.py
+import re # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/re.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_compile.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_compile.py
+import sre_compile # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_compile.pyc
+import _sre # builtin
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_parse.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_parse.py
+import sre_parse # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_parse.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_constants.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_constants.py
+import sre_constants # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/sre_constants.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_sysconfigdata.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_sysconfigdata.py
+import _sysconfigdata # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_sysconfigdata.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_osx_support.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_osx_support.py
+import _osx_support # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_osx_support.pyc
+import encodings # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/__init__.py
+import encodings # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/codecs.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/codecs.py
+import codecs # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/codecs.pyc
+import _codecs # builtin
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/aliases.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/aliases.py
+import encodings.aliases # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/aliases.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.py
+import encodings.utf_8 # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/encodings/utf_8.pyc
+Python 2.7.6 (v2.7.6:3a1db0d2747e, Nov 10 2013, 00:42:54) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+import pygame # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/__init__.py
+import pygame # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/string.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/string.py
+import string # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/string.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/strop.so", 2);
+import strop # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/strop.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/base.so", 2);
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/atexit.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/atexit.py
+import atexit # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/atexit.pyc
+import pygame.base # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/base.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/constants.so", 2);
+import pygame.constants # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/constants.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/version.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/version.py
+import pygame.version # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/version.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/rect.so", 2);
+import pygame.rect # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/rect.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/compat.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/compat.py
+import pygame.compat # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/compat.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/rwobject.so", 2);
+import pygame.rwobject # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/rwobject.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surflock.so", 2);
+import pygame.surflock # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surflock.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/color.so", 2);
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/colordict.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/colordict.py
+import pygame.colordict # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/colordict.pyc
+import pygame.color # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/color.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/cdrom.so", 2);
+import pygame.cdrom # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/cdrom.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/cursors.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/cursors.py
+import pygame.cursors # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/cursors.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/display.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surface.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/bufferproxy.so", 2);
+import pygame.bufferproxy # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/bufferproxy.so
+import pygame.surface # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surface.so
+import pygame.display # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/display.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/draw.so", 2);
+import pygame.draw # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/draw.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/event.so", 2);
+import pygame.event # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/event.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/image.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/imageext.so", 2);
+import pygame.imageext # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/imageext.so
+import pygame.image # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/image.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/joystick.so", 2);
+import pygame.joystick # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/joystick.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/key.so", 2);
+import pygame.key # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/key.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mouse.so", 2);
+import pygame.mouse # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mouse.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sprite.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sprite.py
+import pygame.sprite # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sprite.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/time.so", 2);
+import pygame.time # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/time.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mask.so", 2);
+import pygame.mask # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mask.so
+import pygame.threads # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/threads
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/threads/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/threads/__init__.py
+import pygame.threads # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/threads/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/Queue.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/Queue.py
+import Queue # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/Queue.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/time.so", 2);
+import time # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/time.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.py
+import threading # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/threading.pyc
+import thread # builtin
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/collections.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/collections.py
+import collections # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/collections.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_collections.so", 2);
+import _collections # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_collections.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/operator.so", 2);
+import operator # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/operator.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/keyword.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/keyword.py
+import keyword # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/keyword.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/heapq.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/heapq.py
+import heapq # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/heapq.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/itertools.so", 2);
+import itertools # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/itertools.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_heapq.so", 2);
+import _heapq # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_heapq.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/pixelarray.so", 2);
+import pygame.pixelarray # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/pixelarray.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/overlay.so", 2);
+import pygame.overlay # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/overlay.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/transform.so", 2);
+import pygame.transform # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/transform.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/font.so", 2);
+import pygame.font # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/font.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sysfont.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sysfont.py
+import pygame.sysfont # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sysfont.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mixer_music.so", 2);
+import pygame.mixer_music # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mixer_music.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mixer.so", 2);
+import pygame.mixer # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/mixer.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/movie.so", 2);
+import pygame.movie # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/movie.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surfarray.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surfarray.py
+import pygame.surfarray # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/surfarray.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numpysurfarray.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numpysurfarray.py
+import pygame._numpysurfarray # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numpysurfarray.pyc
+import numpy # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.py
+import numpy # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/__future__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/__future__.py
+import __future__ # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/__future__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__config__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__config__.py
+import numpy.__config__ # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/__config__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/version.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/version.py
+import numpy.version # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/version.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/_import_tools.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/_import_tools.py
+import numpy._import_tools # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/_import_tools.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/add_newdocs.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/add_newdocs.py
+import numpy.add_newdocs # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/add_newdocs.pyc
+import numpy.lib # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/__init__.py
+import numpy.lib # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/__init__.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so", 2);
+import math # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/math.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/info.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/info.py
+import numpy.lib.info # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/info.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/type_check.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/type_check.py
+import numpy.lib.type_check # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/type_check.pyc
+import numpy.core # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/__init__.py
+import numpy.core # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/info.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/info.py
+import numpy.core.info # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/info.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/multiarray.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/datetime.so", 2);
+import datetime # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/datetime.so
+import numpy.core.multiarray # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/multiarray.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/umath.so", 2);
+import numpy.core.umath # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/umath.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_internal.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_internal.py
+import numpy.core._internal # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_internal.pyc
+import numpy.compat # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/__init__.py
+import numpy.compat # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/_inspect.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/_inspect.py
+import numpy.compat._inspect # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/_inspect.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/py3k.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/py3k.py
+import numpy.compat.py3k # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/compat/py3k.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/numerictypes.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/numerictypes.py
+import numpy.core.numerictypes # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/numerictypes.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/numeric.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/numeric.py
+import numpy.core.numeric # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/numeric.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/cPickle.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/cStringIO.so", 2);
+import cStringIO # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/cStringIO.so
+import cPickle # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/cPickle.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_dotblas.so", 2);
+import numpy.core._dotblas # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_dotblas.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/arrayprint.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/arrayprint.py
+import numpy.core.arrayprint # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/arrayprint.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/functools.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/functools.py
+import functools # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/functools.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_functools.so", 2);
+import _functools # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_functools.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/fromnumeric.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/fromnumeric.py
+import numpy.core.fromnumeric # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/fromnumeric.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_methods.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_methods.py
+import numpy.core._methods # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/_methods.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/defchararray.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/defchararray.py
+import numpy.core.defchararray # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/defchararray.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/records.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/records.py
+import numpy.core.records # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/records.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/memmap.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/memmap.py
+import numpy.core.memmap # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/memmap.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/scalarmath.so", 2);
+import numpy.core.scalarmath # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/scalarmath.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/function_base.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/function_base.py
+import numpy.core.function_base # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/function_base.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/machar.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/machar.py
+import numpy.core.machar # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/machar.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/getlimits.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/getlimits.py
+import numpy.core.getlimits # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/getlimits.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/shape_base.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/shape_base.py
+import numpy.core.shape_base # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/core/shape_base.pyc
+import numpy.testing # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/__init__.py
+import numpy.testing # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/__init__.pyc
+import unittest # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/__init__.py
+import unittest # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/result.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/result.py
+import unittest.result # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/result.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/StringIO.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/StringIO.py
+import StringIO # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/StringIO.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/util.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/util.py
+import unittest.util # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/util.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/case.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/case.py
+import unittest.case # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/case.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/difflib.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/difflib.py
+import difflib # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/difflib.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.py
+import pprint # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/suite.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/suite.py
+import unittest.suite # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/suite.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/loader.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/loader.py
+import unittest.loader # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/loader.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/fnmatch.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/fnmatch.py
+import fnmatch # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/fnmatch.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/main.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/main.py
+import unittest.main # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/main.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/runner.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/runner.py
+import unittest.runner # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/runner.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/signals.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/signals.py
+import unittest.signals # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/signals.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/weakref.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/weakref.py
+import weakref # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/weakref.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/decorators.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/decorators.py
+import numpy.testing.decorators # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/decorators.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/utils.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/utils.py
+import numpy.testing.utils # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/utils.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/nosetester.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/nosetester.py
+import numpy.testing.nosetester # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/nosetester.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/numpytest.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/numpytest.py
+import numpy.testing.numpytest # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/testing/numpytest.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/ufunclike.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/ufunclike.py
+import numpy.lib.ufunclike # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/ufunclike.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/index_tricks.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/index_tricks.py
+import numpy.lib.index_tricks # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/index_tricks.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/function_base.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/function_base.py
+import numpy.lib.function_base # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/function_base.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/twodim_base.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/twodim_base.py
+import numpy.lib.twodim_base # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/twodim_base.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_compiled_base.so", 2);
+import numpy.lib._compiled_base # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_compiled_base.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/utils.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/utils.py
+import numpy.lib.utils # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/utils.pyc
+import numpy.matrixlib # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib/__init__.py
+import numpy.matrixlib # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib/defmatrix.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib/defmatrix.py
+import numpy.matrixlib.defmatrix # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/matrixlib/defmatrix.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/stride_tricks.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/stride_tricks.py
+import numpy.lib.stride_tricks # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/stride_tricks.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/nanfunctions.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/nanfunctions.py
+import numpy.lib.nanfunctions # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/nanfunctions.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/shape_base.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/shape_base.py
+import numpy.lib.shape_base # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/shape_base.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/scimath.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/scimath.py
+import numpy.lib.scimath # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/scimath.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/polynomial.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/polynomial.py
+import numpy.lib.polynomial # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/polynomial.pyc
+import numpy.linalg # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/__init__.py
+import numpy.linalg # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/info.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/info.py
+import numpy.linalg.info # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/info.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/linalg.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/linalg.py
+import numpy.linalg.linalg # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/linalg.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/lapack_lite.so", 2);
+import numpy.linalg.lapack_lite # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/lapack_lite.so
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/_umath_linalg.so", 2);
+import numpy.linalg._umath_linalg # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/linalg/_umath_linalg.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arraysetops.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arraysetops.py
+import numpy.lib.arraysetops # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arraysetops.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/npyio.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/npyio.py
+import numpy.lib.npyio # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/npyio.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/format.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/format.py
+import numpy.lib.format # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/format.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/io.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/io.py
+import io # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/io.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so", 2);
+import _io # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_io.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_datasource.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_datasource.py
+import numpy.lib._datasource # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_datasource.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/shutil.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/shutil.py
+import shutil # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/shutil.pyc
+import pwd # builtin
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/grp.so", 2);
+import grp # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/grp.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_iotools.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_iotools.py
+import numpy.lib._iotools # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/_iotools.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/future_builtins.so", 2);
+import future_builtins # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/future_builtins.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/financial.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/financial.py
+import numpy.lib.financial # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/financial.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arrayterator.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arrayterator.py
+import numpy.lib.arrayterator # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arrayterator.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arraypad.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arraypad.py
+import numpy.lib.arraypad # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/lib/arraypad.pyc
+import numpy.fft # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/__init__.py
+import numpy.fft # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/info.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/info.py
+import numpy.fft.info # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/info.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/fftpack.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/fftpack.py
+import numpy.fft.fftpack # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/fftpack.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/fftpack_lite.so", 2);
+import numpy.fft.fftpack_lite # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/fftpack_lite.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/helper.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/helper.py
+import numpy.fft.helper # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/fft/helper.pyc
+import numpy.polynomial # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/__init__.py
+import numpy.polynomial # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polynomial.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polynomial.py
+import numpy.polynomial.polynomial # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polynomial.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polyutils.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polyutils.py
+import numpy.polynomial.polyutils # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polyutils.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polytemplate.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polytemplate.py
+import numpy.polynomial.polytemplate # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/polytemplate.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/chebyshev.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/chebyshev.py
+import numpy.polynomial.chebyshev # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/chebyshev.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/legendre.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/legendre.py
+import numpy.polynomial.legendre # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/legendre.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/hermite.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/hermite.py
+import numpy.polynomial.hermite # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/hermite.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/hermite_e.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/hermite_e.py
+import numpy.polynomial.hermite_e # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/hermite_e.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/laguerre.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/laguerre.py
+import numpy.polynomial.laguerre # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/polynomial/laguerre.pyc
+import numpy.random # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/__init__.py
+import numpy.random # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/info.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/info.py
+import numpy.random.info # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/info.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/mtrand.so", 2);
+import numpy.random.mtrand # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/random/mtrand.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ctypeslib.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ctypeslib.py
+import numpy.ctypeslib # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ctypeslib.pyc
+import ctypes # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/__init__.py
+import ctypes # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/__init__.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_ctypes.so", 2);
+import _ctypes # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_ctypes.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/struct.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/struct.py
+import struct # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/struct.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_struct.so", 2);
+import _struct # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload/_struct.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/_endian.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/_endian.py
+import ctypes._endian # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/ctypes/_endian.pyc
+import numpy.ma # directory /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/__init__.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/__init__.py
+import numpy.ma # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/__init__.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/core.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/core.py
+import numpy.ma.core # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/core.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/extras.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/extras.py
+import numpy.ma.extras # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/numpy/ma/extras.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numericsurfarray.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_arraysurfarray.so", 2);
+import pygame._arraysurfarray # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_arraysurfarray.so
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sndarray.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sndarray.py
+import pygame.sndarray # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/sndarray.pyc
+# /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numpysndarray.pyc matches /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numpysndarray.py
+import pygame._numpysndarray # precompiled from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numpysndarray.pyc
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/_numericsndarray.so", 2);
+dlopen("/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/fastevent.so", 2);
+import pygame.fastevent # dynamically loaded from /Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/pygame/fastevent.so
+# clear __builtin__._
+# clear sys.path
+# clear sys.argv
+# clear sys.ps1
+# clear sys.ps2
+# clear sys.exitfunc
+# clear sys.exc_type
+# clear sys.exc_value
+# clear sys.exc_traceback
+# clear sys.last_type
+# clear sys.last_value
+# clear sys.last_traceback
+# clear sys.path_hooks
+# clear sys.path_importer_cache
+# clear sys.meta_path
+# clear sys.flags
+# clear sys.float_info
+# restore sys.stdin
+# restore sys.stdout
+# restore sys.stderr
+# cleanup __main__
+# cleanup[1] datetime
+# cleanup[1] sysconfig
+# cleanup[1] unittest.main
+# cleanup[1] zipimport
+# cleanup[1] pygame.surflock
+# cleanup[1] cStringIO
+# cleanup[1] atexit
+# cleanup[1] pygame.imageext
+# cleanup[1] encodings
+# cleanup[1] _ctypes
+# cleanup[1] Queue
+# cleanup[1] numpy.lib.info
+# cleanup[1] struct
+# cleanup[1] thread
+# cleanup[1] StringIO
+# cleanup[1] numpy.core.memmap
+# cleanup[1] __future__
+# cleanup[1] _collections
+# cleanup[1] unittest
+# cleanup[1] unittest.runner
+# cleanup[1] _heapq
+# cleanup[1] sre_constants
+# cleanup[1] _warnings
+# cleanup[1] _functools
+# cleanup[1] _codecs
+# cleanup[1] _osx_support
+# cleanup[1] pwd
+# cleanup[1] _sysconfigdata
+# cleanup[1] _struct
+# cleanup[1] keyword
+# cleanup[1] posix
+# cleanup[1] encodings.aliases
+# cleanup[1] exceptions
+# cleanup[1] site
+# cleanup[1] shutil
+# cleanup[1] strop
+# cleanup[1] grp
+# cleanup[1] pygame.rwobject
+# cleanup[1] unittest.signals
+# cleanup[1] future_builtins
+# cleanup[1] _weakref
+# cleanup[1] _weakrefset
+# cleanup[1] time
+# cleanup[1] encodings.utf_8
+# cleanup[1] signal
+# cleanup[1] fnmatch
+# cleanup[1] codecs
+# cleanup[1] unittest.loader
+# cleanup[1] unittest.suite
+# cleanup[1] unittest.case
+# cleanup[1] unittest.result
+# cleanup[1] difflib
+# cleanup[1] functools
+# cleanup[1] pprint
+# cleanup[1] unittest.util
+# cleanup[2] heapq
+# cleanup[2] numpy.core.info
+# cleanup[2] numpy.lib.format
+# cleanup[2] pygame.transform
+# cleanup[2] ctypes._endian
+# cleanup[2] numpy.core.numerictypes
+# cleanup[2] numpy.polynomial.legendre
+# cleanup[2] numpy.random.mtrand
+# cleanup[2] numpy.core.shape_base
+# cleanup[2] numpy.matrixlib.defmatrix
+# cleanup[2] numpy.random.info
+# cleanup[2] numpy.linalg
+# cleanup[2] pygame.sndarray
+# cleanup[2] numpy.polynomial.laguerre
+# cleanup[2] numpy.testing
+# cleanup[2] collections
+# cleanup[2] numpy.core.umath
+# cleanup[2] pygame._arraysurfarray
+# cleanup[2] pygame.fastevent
+# cleanup[2] numpy.core.scalarmath
+# cleanup[2] string
+# cleanup[2] numpy.linalg.info
+# cleanup[2] numpy.lib.arraysetops
+# cleanup[2] pygame.version
+# cleanup[2] numpy.version
+# cleanup[2] numpy.core.machar
+# cleanup[2] numpy.lib.type_check
+# cleanup[2] numpy.core._internal
+# cleanup[2] threading
+# cleanup[2] pygame.image
+# cleanup[2] numpy.fft.fftpack_lite
+# cleanup[2] math
+# cleanup[2] numpy.core.multiarray
+# cleanup[2] numpy.linalg._umath_linalg
+# cleanup[2] numpy.polynomial
+# cleanup[2] pygame.color
+# cleanup[2] pygame._numpysndarray
+# cleanup[2] numpy.add_newdocs
+# cleanup[2] pygame.joystick
+# cleanup[2] numpy.core.getlimits
+# cleanup[2] pygame.overlay
+# cleanup[2] pygame.sprite
+# cleanup[2] numpy.polynomial.polytemplate
+# cleanup[2] numpy.testing.numpytest
+# cleanup[2] abc
+# cleanup[2] numpy.matrixlib
+# cleanup[2] numpy.polynomial.hermite_e
+# cleanup[2] numpy.ma.extras
+# cleanup[2] pygame.mask
+# cleanup[2] numpy.lib.npyio
+# cleanup[2] re
+# cleanup[2] numpy.lib._compiled_base
+# cleanup[2] pygame.event
+# cleanup[2] pygame.threads
+# cleanup[2] numpy.fft.helper
+# cleanup[2] UserDict
+# cleanup[2] ctypes
+# cleanup[2] pygame.movie
+# cleanup[2] pygame.mouse
+# cleanup[2] pygame._numpysurfarray
+# cleanup[2] traceback
+# cleanup[2] pygame.pixelarray
+# cleanup[2] weakref
+# cleanup[2] itertools
+# cleanup[2] numpy.fft.fftpack
+# cleanup[2] numpy.core
+# cleanup[2] numpy.linalg.lapack_lite
+# cleanup[2] numpy.ma
+# cleanup[2] os
+# cleanup[2] _sre
+# cleanup[2] numpy.random
+# cleanup[2] numpy.lib.twodim_base
+# cleanup[2] numpy.ma.core
+# cleanup[2] operator
+# cleanup[2] pygame.surface
+# cleanup[2] numpy.core.arrayprint
+# cleanup[2] pygame.key
+# cleanup[2] pygame.base
+# cleanup[2] posixpath
+# cleanup[2] numpy.lib.financial
+# cleanup[2] pygame.compat
+# cleanup[2] errno
+# cleanup[2] numpy.core._methods
+# cleanup[2] pygame.sysfont
+# cleanup[2] os.path
+# cleanup[2] numpy.core.function_base
+# cleanup[2] pygame.colordict
+# cleanup[2] numpy.lib.stride_tricks
+# cleanup[2] numpy
+# cleanup[2] numpy.polynomial.chebyshev
+# cleanup[2] cPickle
+# cleanup[2] numpy.__config__
+# cleanup[2] pygame.cursors
+# cleanup[2] numpy.testing.utils
+# cleanup[2] numpy.lib.ufunclike
+# cleanup[2] numpy.core.fromnumeric
+# cleanup[2] numpy.lib._iotools
+# cleanup[2] numpy.ctypeslib
+# cleanup[2] numpy.lib.scimath
+# cleanup[2] numpy.fft
+# cleanup[2] numpy.lib
+# cleanup[2] numpy.lib.nanfunctions
+# cleanup[2] numpy.lib.function_base
+# cleanup[2] sre_parse
+# cleanup[2] pygame.cdrom
+# cleanup[2] copy_reg
+# cleanup[2] sre_compile
+# cleanup[2] pygame.time
+# cleanup[2] numpy.compat.py3k
+# cleanup[2] numpy.lib.polynomial
+# cleanup[2] numpy.compat
+# cleanup[2] numpy._import_tools
+# cleanup[2] pygame.mixer
+# cleanup[2] numpy.polynomial.hermite
+# cleanup[2] io
+# cleanup[2] numpy.fft.info
+# cleanup[2] numpy.core.records
+# cleanup[2] numpy.core._dotblas
+# cleanup[2] numpy.polynomial.polynomial
+# cleanup[2] numpy.lib._datasource
+# cleanup[2] linecache
+# cleanup[2] numpy.core.numeric
+# cleanup[2] pygame.draw
+# cleanup[2] _abcoll
+# cleanup[2] pygame
+# cleanup[2] pygame.rect
+# cleanup[2] numpy.testing.decorators
+# cleanup[2] genericpath
+# cleanup[2] stat
+# cleanup[2] numpy.lib.index_tricks
+# cleanup[2] warnings
+# cleanup[2] numpy.lib.utils
+# cleanup[2] numpy.core.defchararray
+# cleanup[2] numpy.polynomial.polyutils
+# cleanup[2] numpy.lib.shape_base
+# cleanup[2] numpy.compat._inspect
+# cleanup[2] pygame.mixer_music
+# cleanup[2] pygame.constants
+# cleanup[2] numpy.lib.arrayterator
+# cleanup[2] numpy.testing.nosetester
+# cleanup[2] types
+# cleanup[2] pygame.surfarray
+# cleanup[2] numpy.lib.arraypad
+# cleanup[2] pygame.font
+# cleanup[2] _io
+# cleanup[2] pygame.bufferproxy
+# cleanup[2] pygame.display
+# cleanup[2] numpy.linalg.linalg
+# cleanup sys
+# cleanup __builtin__
+# cleanup ints: 265 unfreed ints
+# cleanup floats: 40 unfreed floats

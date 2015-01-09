@@ -7,9 +7,15 @@ class Color(object):
 class display(object): pass
 for m in ['flip', 'get_surface', 'get_caption', 'set_mode']:
 	setattr(display, m, staticmethod(getattr(pygame.display, m))) 
+class Broker(object):
+	original_class = None
+	methods = []
 
-class Surface(object):
 	def __init__(self, *args, **kwargs):
-		surf = pygame.Surface(*args, **kwargs)
-for m in ["blit", "convert", "convert_alpha", "copy", "fill", "get_height", "get_rect", "get_width", "scroll", "set_alpha", "set_clip", "set_colorkey"]:
-	setattr(Surface, m, getattr(Surface.surf, m))
+		self.obj = self.original_class(*args, **kwargs)
+		for m in self.methods:
+			setattr(self, m, lambda *args, **kwargs: getattr(self.obj, m)(*args, **kwargs))
+
+class Surface(Broker):
+	original_class = pygame.Surface
+	methods = ["blit", "convert", "convert_alpha", "copy", "fill", "get_height", "get_rect", "get_width", "scroll", "set_alpha", "set_clip", "set_colorkey"]

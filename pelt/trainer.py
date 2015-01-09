@@ -25,7 +25,7 @@ class TrainerObject(objects.NPC):
 		self.pre_script = data.get_node(element, "pre_script")
 		self.post_script = data.get_node(element, "post_script")
 		#load spotted icon
-		self.spotted_pic = data.load_image("trainers/spotted.png")
+		self.spotted_pic = data.load_image("objects/spotted.png")
 		self.spotted_pic.convert_alpha()
 		#get whether we have been fought or not
 		self.fought = self.g.save.get_prop(self.id, "fought", False)
@@ -49,7 +49,7 @@ class TrainerObject(objects.NPC):
 		self.interacting = True #we should be interacting now
 		#set proper animation
 		self.animator.set_animation("stand_"+objects.get_direction_name(self.move_manager.curr_movement[0]))
-		self.stored_anim = self.animator.curr_animation
+		self.stored_anim = self.animator.curranim
 		self.script_manager.start_script(self.pre_script) #start script running
 	def run_interaction(self): #do interaction
 		self.should_interact = False #we're not waiting for interaction any more

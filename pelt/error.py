@@ -4,6 +4,7 @@
 
 class ParseError(ValueError): pass
 class NoFacingError(ParseError): pass
+class NoSpawnPoint(ParseError): pass
 class OutputReturnError(SyntaxError): pass
 class UserQuit(SystemExit): pass
 

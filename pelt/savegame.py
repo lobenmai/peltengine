@@ -26,7 +26,7 @@ class SaveGame: #class to manage a savegame
 		f = open(filename, "wb") #open file to write out data
 		data = cerealizer.dumps([self.obj_props, self.game_props]) #cerealize object data
 		data = zlib.compress(data, 9) #compress pickled data
-		f.write(data) #write out data
+		f.write(data) #write data
 		f.close() #and close written file
 	def set_prop(self, id, prop, value): #set an object property
 		if id not in self.obj_props: #if this id hasn't been used yet

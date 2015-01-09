@@ -3,6 +3,8 @@
 
 import settings #load settings manager
 import data
+import main
+import music
 
 if not settings.ios:
 	import pygame #import everything pygame-related
@@ -14,6 +16,7 @@ class Script:
 	def __init__(self, obj): #initialize ourselves
 		self.obj = obj #store object
 		self.running = False #we aren't running
+		self.g = main.g
 	def start_script(self, s): #start a script running
 		self.running = True #we're running
 		self.curr_script = s #store script
@@ -115,6 +118,11 @@ class Script:
 		what = cmd.getAttribute("what") #get what variable to set
 		to = cmd.getAttribute("to") #get what to set it to
 		self.set_var(what, self.get_var(to)) #perform set
+	def cmd_movie(self, cmd):
+		pass #pass for now 
+	def cmd_sound(self, cmd):
+		self.g.sounds[cmd.getAttribute("sound")].set_volume(cmd.getAttribute("volume", 100))
+		self.g.sounds[cmd.getAttribute("sound")].play(loops=cmd.getAttribute("loops", 0), maxtime=cmd.getAttribute("maxtime", 0), fade_ms=cmd.getAttribute("fade_ms", 0))
 	def next_cmd(self): #process the next command
 		if not self.running: return True #return if we aren't running
 		#return if we're waiting for a dialog and one is being shown
@@ -148,6 +156,10 @@ class Script:
 			self.cmd_set_pos(self.curr_command)
 		elif self.curr_command.localName == "set_var": #handle setting a variable
 			self.cmd_set_var(self.curr_command)
+		elif self.curr_command.localName == "movie":
+			self.cmd_movie(self.curr_command)
+		elif self.curr_command.localName == "sound":
+			self.cmd_sound(self.curr_command)
 		self.curr_command = self.curr_command.nextSibling #go to next command
 	def update(self): #update script state
 		if not self.running: return #return if we aren't running

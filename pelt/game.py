@@ -9,31 +9,25 @@ if not settings.ios:
 else: import scene
 import random #import rng for battle
 
-import map #and map manager
-import objects #and objects
-import font #font manager
-import player #class for player
-import dialog #class for dialogs
-import transition #import all the transitions
-import menu #import menu manager
-import battle
-import data
-import thread, traceback
+import map, objects, font, player, dialog, transition, menu, battle, data, thread, traceback, error
+
 try: import readline
 except: pass
 
 def evalinput(self):
 	while self.g.keeprunning:
-		try :
+		try:
 			x = raw_input()
 			print repr(eval(x))
-		except : traceback.print_exc()
+		except: traceback.print_exc()
 
 class Game: #class for our game engine
 	def __init__(self, g):
 		self.g = g #store global variables
-		self.surf = pygame.Surface((settings.screen_x, settings.screen_y)) #create a new surface to display on
+		self.surf = pygame.Surface((settings.screen_x/settings.game_scale, settings.screen_y/settings.game_scale)) #create a new surface to display on
 		self.surf.convert() #convert it to the display format for faster blitting
+		self.dlog_surf = pygame.Surface((settings.screen_x/settings.screen_scale, settings.screen_y/settings.screen_scale), pygame.SRCALPHA) #create a new surface to display on
+		self.dlog_surf.convert() #convert it to the display format for faster blitting
 		self.camera_pos = [80, 128] #set default camera position
 		self.objects = {} #list of objects on the map
 		self.warps = {} #list of warps on the map
@@ -50,15 +44,16 @@ class Game: #class for our game engine
 		self.dialog_result = None #hold result of a dialog
 		self.dialog_callback = None #callback for dialog completion
 		self.debug = False #whether we're in debug mode or not
-		self.menu = menu.Menu(self) #initialize a menu manager
-		self.menu_showing = False #whether the menu is being shown
-	def start(self):
+		self.g.menu = menu.Menu(self, g.screen) #initialize a menu manager
+	def start(self, spawn):
+		self.g.playingGame = True #we're now playing the game
+		self.g.set_screen() #so change the screen size
 		self.player = player.Player(self) #initialize a player object
 		self.camera_follow = self.player #set who the camera follows
-		self.load_map(self.g.save.get_game_prop("game", "curr_map", "maps/testmap.xml")) #load map
+		self.load_map(self.g.save.get_game_prop("game", "curr_map", "maps/oasis_intro.xml"), spawn) #load map
 		self.map_image = self.map.update() #update it once
 		self.transition(transition.FadeIn(32)) #start fade in
-	def load_map(self, map_file): #load a map
+	def load_map(self, map_file, spawn=False): #load a map
 		map_dom = data.load_xml(map_file).documentElement #load map xml data
 		tile_file = map_dom.getAttribute("tiles") #get tile map file
 		self.map = map.Map(self.g, tile_file) #load the map
@@ -76,9 +71,12 @@ class Game: #class for our game engine
 			elif child.localName == "wild": #if it's wild pokemon data
 				self.parse_wild(child) #handle it
 			child = child.nextSibling #go to next element
+		if spawn:
+			try: self.player.warp(self.objects["spawn_point"].tile_pos)
+			except KeyError as e: raise error.NoSpawnPoint("The introduction level to this game has no spawn point defined!\n%s" %e)
 		self.objects["player"] = self.player #store player object
 		self.map.add_object(self.player) #and add it to map
-		if self.debug : print repr(self.objects)
+		if self.debug: print repr(self.objects)
 	def parse_wild(self, wild): #parse wild pokemon data
 		when = wild.getAttribute("for") #get when the data will be used
 		data = []
@@ -105,6 +103,11 @@ class Game: #class for our game engine
 	def prepare_warp(self, pos): #prepare a warp
 		self.warp_obj = self.warps[pos] #get the warp object
 		#start transition
+		warpSound = self.warp_obj.get('sound')
+		if warpSound:
+			sound = warpSound.getAttribute("sound")
+			self.g.sounds[sound].set_volume(int(warpSound.getAttribute("vol")))
+			self.g.sounds[sound].play()
 		self.transition(transition.FadeOut(32), callback=self.perform_warp)
 	def perform_warp(self): #actually warp
 		warp_obj = self.warp_obj #get the warp object
@@ -186,24 +189,25 @@ class Game: #class for our game engine
 		t = battle.Battle(self) #create a new battle
 		t.start_wild(data[type][0], data[type][1][level]) #start an encounter
 	def update(self): #update the engine for this frame
+		prlx = settings.get_prlx(5, 0.25)
 		if self.g.curr_keys.get(settings.key_debug): #if the debug key is pressed
 			self.debug = not self.debug #invert debug flag
-			if self.debug :
+			if self.debug:
 				thread.start_new_thread(evalinput, (self,))
 				self.g.keeprunning = True
 			else :
 				self.g.keeprunning = False
 		if self.g.curr_keys.get(settings.key_menu): #if the menu key is pressed
 			#if no transition is happening and the menu isn't already being shown
-			if self.curr_transition is None and self.menu_showing is False and self.dialog_drawing is False and self.stopped is False:
-				self.menu.show() #show menu
-				self.menu_showing = True #and mark it as being shown
+			if self.curr_transition is None and self.g.menu_showing is False and self.dialog_drawing is False and self.stopped is False:
+				self.g.menu.show() #show menu
+				self.g.menu_showing = True #and mark it as being shown
 		#center camera on player
 		pos = self.camera_follow.pos #get position of what the camera is following
-		self.camera_pos = (pos[0]-(settings.screen_x/2)+16, pos[1]-(settings.screen_y/2)+16)
-		if self.curr_transition is None and self.menu_showing is False: #if there is no transition going on now
+		self.camera_pos = (pos[0]-(settings.screen_x/2/settings.game_scale)+16, pos[1]-(settings.screen_y/2/settings.game_scale)+16)
+		if self.curr_transition is None and self.g.menu_showing is False: #if there is no transition going on now
 			self.map_image = self.map.update(pygame.Rect(self.camera_pos, \
-			(settings.screen_x, settings.screen_y))) #update the map
+			(settings.screen_x/settings.game_scale, settings.screen_y/settings.game_scale))) #update the map
 			if self.debug: #if we're debugging
 				if self.g.curr_keys.get(settings.key_dbg_save): #if save key is pressed
 					self.save() #do a save
@@ -215,10 +219,8 @@ class Game: #class for our game engine
 			for pos in self.pos2obj: #draw object collision tiles
 				self.map_image.fill((255, 0, 0), rect=pygame.Rect(((pos[0]*16, pos[1]*16), (16, 16))), special_flags=BLEND_RGB_MULT)
 		#draw map
-		self.surf.blit(self.map_image, (0, 0), pygame.Rect(self.camera_pos, \
-			(settings.screen_x, settings.screen_y))) #blit it
-		if self.menu_showing is True: #if the menu is being shown
-			self.menu.update(self.surf) #update the menu
+		self.surf.blit(self.map_image, prlx, pygame.Rect(self.camera_pos, \
+			(settings.screen_x/settings.game_scale, settings.screen_y/settings.game_scale))) #blit it
 		if self.curr_transition is not None: #if there is a transition happening
 			r = self.curr_transition.update(self.surf) #update it
 			if r: #if it finished
@@ -227,7 +229,9 @@ class Game: #class for our game engine
 					self.transition_cb() #call it			
 					self.transition_cb = None #destroy callback
 		if self.dialog_drawing: #if we're drawing a dialog
-			result = self.dialog.update(self.surf, (0, 1)) #draw it
+			self.dlog_surf.fill((0,0,0,0))
+			dlog_pos = (0, settings.screen_y / settings.game_scale - self.dialog.dlog_rect.size[1])
+			result = self.dialog.update(pygame.Surface((1,1)), dlog_pos) #draw it
 			if result is not None: #if we're finished
 				self.dialog_drawing = False #stop drawing
 				self.dialog_result = result #store result
@@ -238,16 +242,16 @@ class Game: #class for our game engine
 				#draw an arrow to them
 				pos = self.dialog_talking.pos
 				pos = (pos[0]-self.camera_pos[0]+2, pos[1]-self.camera_pos[1]+10)
-				pygame.draw.polygon(self.surf, (161, 161, 161), [[63, 41], [pos[0]-1, pos[1]+1],[pos[0]+1, pos[1]+1],[81, 41]])
-				self.dialog.update(self.surf, (0, 1))
-				pygame.draw.polygon(self.surf, (255, 255, 255), [[64, 42], pos, [80, 42]])
+				#pygame.draw.polygon(self.surf, (161, 161, 161), [[63, 41], [pos[0]-1, pos[1]+1],[pos[0]+1, pos[1]+1],[81, 41]])
+				self.dialog.update(self.dlog_surf, dlog_pos)
+				#pygame.draw.polygon(self.surf, (255, 255, 255), [[64, 42], pos, [80, 42]])
 		if self.debug: self.font.render(str(self.g.fps), self.surf, (0, 180)) #draw framerate
-		return self.surf #return the rendered surface
-	def save(self, fname=None): #save our data
+		return self.surf #return self
+	def save(self, slot=0, fname=None): #save our data
 		for id in self.objects: #loop through all our objects
 			self.objects[id].save() #tell them to save
 		if fname is None: #if no save file was specified
-			f = settings.save_name #use one in settings
+			f = settings.save_name %slot #use one in settings
 		else: #otherwise
 			f = fname #use passed one
 		self.g.save.set_game_prop("game", "curr_map", self.map_file) #store map

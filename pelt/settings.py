@@ -1,13 +1,26 @@
 #PELT Configuration
 #Created December 4, 2013 at 15:22
 
-ios = False
-
 try: import pygame
 except ImportError: ios = True
 import pickle, os, sys
 
-args = sys.argv[1:]
+ios = False
+
+steamAPI = True
+name = "Vinyl Darkscratch" #"Beta Tester"
+
+SETTINGS_VERSION = 0.1
+MOUSE_BUTTON_COUNT = 5 + 1
+
+TILE_NORMAL = 0
+TILE_SOLID = 1
+TILE_WATER = 2
+TILE_WARP = 3
+TILE_GRASS = 5
+TILE_DOUBLEGRASS = 8
+
+args = sys.argv[2:]
 
 r = os.path.dirname(__file__)
 
@@ -16,7 +29,8 @@ if hasattr(sys,"frozen") and sys.frozen in ("windows_exe", "console_exe"):
 
 rootdir = os.path.dirname(r)
 
-save_name = "save.peltsav"
+maxsaves = 4
+save_name = os.path.join("resources", "saves", "save%d.peltsav")
 data_path = "data"
 resource_path = "resources"
 
@@ -44,13 +58,17 @@ if len(args) > 0:
 	if "nocolor" in args: color = False
 	if "instmsg" in args: instmsg = True
 
-final_screen_x = 1024
-final_screen_y = 768
-final_screen = (final_screen_x, final_screen_y)
+retina = 0
 
-screen_scale = 2 #scale factor of the screen before displaying
-screen_x = final_screen_x / screen_scale
-screen_y = final_screen_y / screen_scale
+final_screen_x = 2000 if retina else 1000
+final_screen_y = 1200 if retina else 600
+final_screen = (final_screen_x, final_screen_y)
+fullscreen = False
+
+screen_scale = 1 #scale factor of the entire screen
+game_scale = 2 #scale factor of the screen in-game
+screen_x = final_screen_x
+screen_y = final_screen_y
 framerate = 30 #framerate to keep
 
 if not ios:
@@ -64,29 +82,22 @@ if not ios:
 	key_cancel = pygame.K_z
 	key_dbg_save = pygame.K_j
 	key_dbg_load = pygame.K_k
-	key_menu = pygame.K_i
+	key_menu = pygame.K_ESCAPE
 
 option_music = False
 option_sound = True
 parallax = True
 parallax_scale = 30
 
-MOUSE_BUTTON_COUNT = 5 + 1
-
-TILE_NORMAL = 0
-TILE_SOLID = 1
-TILE_WATER = 2
-TILE_WARP = 3
-TILE_GRASS = 5
-TILE_DOUBLEGRASS = 8
-
 def save():
 	settingsdict = {
+		'sver': SETTINGS_VERSION, 
 		'lang': lang,
 		'music': option_music,
 		'sound': option_sound,
 		'parallax': parallax,
-		'prlx_scale': parallax_scale
+		'prlx_scale': parallax_scale,
+		'fullscreen': fullscreen
 	}
 	pickle.dump(settingsdict, file(optionspath, 'wb'))
 
@@ -94,11 +105,13 @@ def load(gi):
 	global settingsdict, lang, option_music, option_sound, parallax, parallax_scale, g
 	try:
 		s = pickle.load(file(optionspath, 'rb'))
-		lang = s['lang']
-		option_music = s['music']
-		option_sound = s['sound']
-		parallax = s['parallax']
-		parallax_scale = s['prlx_scale']
+		if s.get('sver', 0) in [0, SETTINGS_VERSION]:
+			lang = s.get('lang', lang)
+			option_music = s.get('music', option_music)
+			option_sound = s.get('sound', option_sound)
+			parallax = s.get('parallax', parallax)
+			parallax_scale = s.get('prlx_scale', parallax_scale)
+			fullscreen = s.get('fullscreen', False)
 	except IOError: pass
 	g = gi
 
