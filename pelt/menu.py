@@ -123,6 +123,11 @@ class TitleMenu:
 		elif choice == 5: # ...or return to the main menu, we should not use our start_options() function for our toggles.
 			self.update_func = self.update
 			settings.save()
+
+			red_rect = pygame.Surface((self.dlog_height, self.dlog_width))
+			red_rect.fill((255, 0, 0))
+			self.surf.blit(red_rect, (rect.left, rect.top))
+
 			self.g.sounds['openMenu'].play()
 			self.show()
 		else: # otherwise, we should activate our toggle switch and refresh the options menu
