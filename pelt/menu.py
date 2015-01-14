@@ -76,7 +76,6 @@ class TitleMenu:
 	def update(self):
 		prlx = settings.get_prlx(5, 1)
 		
-		#choice = self.dlog.update(self.surf, (1, -60)) #draw text dialog
 		choice = self.dlog.update(self.surf, (1, -60)) #draw choice dialog
 		if choice is not None: # and choice is not False: #if the user chose something
 			self.handle_c(choice) #handle the choice
@@ -124,9 +123,9 @@ class TitleMenu:
 			self.update_func = self.update
 			settings.save()
 
-			red_rect = pygame.Surface((self.dlog_height, self.dlog_width))
+			red_rect = pygame.Surface((self.dlog.dlog_width, self.dlog.dlog_height))
 			red_rect.fill((255, 0, 0))
-			self.surf.blit(red_rect, (rect.left, rect.top))
+			self.surf.blit(red_rect, (1, settings.screen_y-self.dlog.dlog_height-60))
 
 			self.g.sounds['openMenu'].play()
 			self.show()

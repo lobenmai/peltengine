@@ -1,6 +1,7 @@
 build/*
 dist/*
 noredistresources/*
+exception.txt
 *.pyc
 *.py.old
 *.py.remake

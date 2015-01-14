@@ -2,7 +2,7 @@ We're terribly sorry, but an internal error has occurred :(
 This will be written to the console and a file named exception.txt in the current directory.
 Press ESCAPE to exit (if displayed on-screen)
 Game could not be saved.
-ValueError: size needs to be (int width, int height)
+AttributeError: TitleMenu instance has no attribute 'dlog_height'
 Traceback (most recent call last):
   File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/main.py", line 255, in main
     g.mainloop() #start the main loop
@@ -12,10 +12,10 @@ Traceback (most recent call last):
     self.update_func(self.surf) #call specified update function
   File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/titlescreen.py", line 136, in main_update
     self.active_menu.update()
-  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/menu.py", line 82, in update
+  File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/menu.py", line 81, in update
     self.handle_c(choice) #handle the choice
   File "/Users/vinyldarkscratch/Dropbox/peltengine/pelt/menu.py", line 128, in handle_option
-    red_rect = pygame.Surface(int(rect.width), int(rect.height))
-ValueError: size needs to be (int width, int height)
+    self.surf.blit(red_rect, (1, settings.screen_y-self.dlog_height-60))
+AttributeError: TitleMenu instance has no attribute 'dlog_height'
 
 Error handler finished.
