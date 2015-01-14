@@ -123,9 +123,13 @@ class TitleMenu:
 			self.update_func = self.update
 			settings.save()
 
-			red_rect = pygame.Surface((self.dlog.dlog_width, self.dlog.dlog_height))
-			red_rect.fill((255, 0, 0))
-			self.surf.blit(red_rect, (1, settings.screen_y-self.dlog.dlog_height-60))
+			sub_bg_pos = (1, settings.screen_y-self.dlog.dlog_height-60)
+			sub_bg =  self.titlescreen.bg.subsurface(pygame.Rect(
+													sub_bg_pos, (self.dlog.dlog_width, self.dlog.dlog_height) ))
+
+			# red_rect = pygame.Surface((self.dlog.dlog_width, self.dlog.dlog_height))
+			# red_rect.fill((255, 0, 0))
+			self.surf.blit(sub_bg, sub_bg_pos)
 
 			self.g.sounds['openMenu'].play()
 			self.show()
