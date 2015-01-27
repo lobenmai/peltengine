@@ -14,13 +14,15 @@ if not settings.ios:
 	from pygame.locals import *
 else: import scene
 
+TILE_SIZE = 16
+
 #class for a map tile layer
 class MapTileLayer:
 	def __init__(self, g, map, layer_node):
 		self.g = g #store globals
 		self.map = map
 		self.tilemap = [] #all tiles on this layer
-		self.image = pygame.Surface((map.map_width*16, map.map_height*16), SRCALPHA) #make a surface to draw on
+		self.image = pygame.Surface((map.map_width*TILE_SIZE, map.map_height*TILE_SIZE), SRCALPHA) #make a surface to draw on
 		self.image.convert_alpha() #convert it to blit faster
 		if layer_node.getAttribute("name") == "Collisions": #if this is the collisions layer
 			self.collisions = True #mark it as such
@@ -87,8 +89,8 @@ class MapTileLayer:
 					old_tile = tile #update old tile
 				t = ((tile-prev[0])%prev[1].tiles_x, (tile-prev[0])/prev[1].tiles_x)
 				if t in prev[2]: #if this tile is animated
-					self.tile_anims.append([(x*16, y*16), -1, 1, prev[2][t], prev[1]]) #append anim list
-				prev[1].blit_tile(i, (x*16, y*16), tile-prev[0]) #draw tile
+					self.tile_anims.append([(x*TILE_SIZE, y*TILE_SIZE), -1, 1, prev[2][t], prev[1]]) #append anim list
+				prev[1].blit_tile(i, (x*TILE_SIZE, y*TILE_SIZE), tile-prev[0]) #draw tile
 				x += 1 #go to next tile
 			y += 1 #go to next row
 	#funtion to update the current image
@@ -105,9 +107,9 @@ class MapTileLayer:
 				self.tile_anims[i][1] = 0 #reset tile number
 			self.tile_anims[i][2] = self.tile_anims[i][3][self.tile_anims[i][1]][1] #set time
 			t = self.tile_anims[i]
-			if camera.colliderect((t[0], (17, 17))): #if the camera can see this tile
+			if camera.colliderect((t[0], (TILE_SIZE+1, TILE_SIZE+1))): #if the camera can see this tile
 				#clear the old tile
-				self.image.fill((0, 0, 0, 0), (t[0], (16, 16)))
+				self.image.fill((0, 0, 0, 0), (t[0], (TILE_SIZE, TILE_SIZE)))
 				t[4].blit_tile(self.image, t[0], t[3][t[1]][0][0], t[3][t[1]][0][1]) #draw the new tile
 		return self.image #just return the current image
 		
@@ -141,8 +143,8 @@ class Map:
 		map_dom = map_dom.documentElement #get the document element of the map
 		self.map_width = int(map_dom.getAttribute("width")) #load dimensions
 		self.map_height = int(map_dom.getAttribute("height"))
-		self.pix_width = self.map_width * 16 #calculate pixel dimensions
-		self.pix_height = self.map_height * 16
+		self.pix_width = self.map_width * TILE_SIZE #calculate pixel dimensions
+		self.pix_height = self.map_height * TILE_SIZE
 		self.properties = {} #dictionary to store map properties
 		self.obj_layer = None #the object layer in the map
 		
@@ -157,11 +159,11 @@ class Map:
 				image_path = image_path.replace("../", "") #fix it up
 				trans = image_tag.getAttribute("trans") #get transparent color
 				if trans is not "": #if one actually exists
-					trans = (int(trans[:2], 16), int(trans[2:4], 16), int(trans[4:], 16)) #parse it
+					trans = (int(trans[:2], TILE_SIZE), int(trans[2:4], TILE_SIZE), int(trans[4:], TILE_SIZE)) #parse it
 				else: #if it doesn't
 					trans = None #set it to None
 				firstgid = int(child.getAttribute("firstgid")) #get id of tileset start
-				t = tileset.Tileset(image_path, 16, 16, trans) #load the tileset
+				t = tileset.Tileset(image_path, TILE_SIZE, TILE_SIZE, trans) #load the tileset
 				try:
 					anim = tileset_anims[image_path] #attempt to get tileset animations for this image
 				except:
@@ -179,14 +181,14 @@ class Map:
 							curr_prop.getAttribute("value") #load a property
 					curr_prop = curr_prop.nextSibling #go to next property
 			child = child.nextSibling #get the next child to process it
-		self.image = pygame.Surface((self.map_width*16, self.map_height*16)) #create a new surface to render on
+		self.image = pygame.Surface((self.map_width*TILE_SIZE, self.map_height*TILE_SIZE)) #create a new surface to render on
 		self.image.convert() #convert it to blit faster
 	def add_object(self, obj): #add an object to the object layer
 		self.obj_layer.add_object(obj) #tell our object layer to add the object
 	#function to update the map
 	def update(self, camera=None):
 		if camera is None:
-			camera = pygame.Rect(0, 0, self.map_width*16, self.map_height*16)
+			camera = pygame.Rect(0, 0, self.map_width*TILE_SIZE, self.map_height*TILE_SIZE)
 		#render all the layers
 		self.image.fill((0, 0, 0)) #clear out the image
 		for layer in self.layers: #loop through all of our layers

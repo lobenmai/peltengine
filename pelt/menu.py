@@ -16,6 +16,8 @@ if settings.steamAPI:
 
 import dialog, font, game, music, error
 
+MENU_POS = (1, -60)
+
 class Menu: #class to manage the in-game menus
 	def __init__(self, game, surf):
 		self.game = game #store given parameters
@@ -76,7 +78,7 @@ class TitleMenu:
 	def update(self):
 		prlx = settings.get_prlx(5, 1)
 		
-		choice = self.dlog.update(self.surf, (1, -60)) #draw choice dialog
+		choice = self.dlog.update(self.surf, MENU_POS) #draw choice dialog
 		if choice is not None: # and choice is not False: #if the user chose something
 			self.handle_c(choice) #handle the choice
 
@@ -123,12 +125,9 @@ class TitleMenu:
 			self.update_func = self.update
 			settings.save()
 
-			sub_bg_pos = (1, settings.screen_y-self.dlog.dlog_height-60)
+			sub_bg_pos = (MENU_POS[0], settings.screen_y-self.dlog.dlog_height+MENU_POS[1])
 			sub_bg =  self.titlescreen.bg.subsurface(pygame.Rect(
 													sub_bg_pos, (self.dlog.dlog_width, self.dlog.dlog_height) ))
-
-			# red_rect = pygame.Surface((self.dlog.dlog_width, self.dlog.dlog_height))
-			# red_rect.fill((255, 0, 0))
 			self.surf.blit(sub_bg, sub_bg_pos)
 
 			self.g.sounds['openMenu'].play()
@@ -166,7 +165,7 @@ class SaveMenu():
 		self.menu = menu
 		self.surf = surf
 		#initialize stuff
-		self.choice_dlog = dialog.ChoiceDialog(self.g, "sign")
+		#self.choice_dlog = dialog.ChoiceDialog(self.g, "sign")
 		self.dlog = dialog.Dialog(self.g, "sign")
 		self.font = font.Font("fonts/dialog_font.xml") #create font for drawing
 
@@ -199,7 +198,16 @@ class SaveMenu():
 		choice = self.dlog.update(self.surf, (0, 1)) #draw dialog
 
 		if choice == None: pass
-		elif choice == settings.maxsaves or self.finished: self.menu_return() #cancel/return
+		elif choice == settings.maxsaves or self.finished:
+			if choice == settings.maxsaves:
+				print dir(self.dlog)
+				print type(self.dlog.dlog_rect), dir(self.dlog.dlog_rect)
+				print (self.dlog.dlog_rect.x, self.dlog.dlog_rect.y), (self.dlog.dlog_rect.w, self.dlog.dlog_rect.h)
+				sub_bg =  self.menu.titlescreen.bg.subsurface(pygame.Rect(
+					(self.dlog.dlog_rect.x, self.dlog.dlog_rect.y), (self.dlog.dlog_rect.w, self.dlog.dlog_rect.h) ))
+				self.menu.surf.blit(sub_bg, sub_bg_pos)
+
+			self.menu_return() #cancel/return
 		elif choice is True:
 			self.finished = True
 			if self.save: self.save_update(self.surf, self.slot)
